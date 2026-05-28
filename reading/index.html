@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Reading Mock Test | ACE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     RESET / BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button { font-family: inherit; }
+  input, textarea, select { font-family: inherit; font-size: inherit; }
+
+  /* ============================================================
+     COLOR + LAYOUT TOKENS  (modern slate + indigo palette)
+     ============================================================ */
+  :root {
+    --ink: #0f172a;          /* slate-900 */
+    --ink-soft: #475569;     /* slate-600 */
+    --ink-faint: #94a3b8;    /* slate-400 */
+    --bg: #f8fafc;           /* slate-50 */
+    --panel: #ffffff;
+    --panel-edge: #e2e8f0;   /* slate-200 */
+    --panel-edge-soft: #f1f5f9; /* slate-100 */
+    --brand: #4f46e5;        /* indigo-600 */
+    --brand-soft: #eef2ff;   /* indigo-50 */
+    --brand-ink: #3730a3;    /* indigo-800 */
+    --success: #059669;      /* emerald-600 */
+    --warn: #d97706;         /* amber-600 */
+    --danger: #dc2626;       /* red-600 */
+    --highlight: #fef08a;    /* amber-200 — the highlighter colour */
+    --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 1px 3px rgba(15,23,42,0.05), 0 10px 30px rgba(15,23,42,0.06);
+    --shadow-lg: 0 4px 12px rgba(15,23,42,0.08), 0 24px 60px rgba(15,23,42,0.10);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  /* ============================================================
+     SCREEN CONTAINERS
+     ============================================================ */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ============================================================
+     WELCOME SCREEN
+     ============================================================ */
+  .welcome-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(at 0% 0%, rgba(79,70,229,0.06) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(20,184,166,0.05) 0px, transparent 50%),
+      var(--bg);
+  }
+  .welcome-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 540px;
+    padding: 44px 44px 36px;
+    box-shadow: var(--shadow-lg);
+  }
+  .ace-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .welcome-title {
+    font-size: 30px;
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .welcome-sub   { color: var(--ink-soft); margin: 0 0 28px; font-size: 15px; }
+  .welcome-meta {
+    background: var(--brand-soft);
+    border: 1px solid #c7d2fe;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--brand-ink);
+    margin-bottom: 26px;
+    line-height: 1.6;
+  }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink-soft);
+  }
+  .field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-size: 15px;
+  }
+  .field input:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px rgba(79,70,229,0.12);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: -0.005em;
+    transition: background 0.15s, border-color 0.15s, transform 0.05s, box-shadow 0.15s;
+  }
+  .btn:hover { background: var(--panel-edge-soft); }
+  .btn:active { transform: translateY(1px); }
+  .btn.primary {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+    box-shadow: 0 1px 2px rgba(79,70,229,0.2), 0 4px 12px rgba(79,70,229,0.15);
+  }
+  .btn.primary:hover { background: var(--brand-ink); border-color: var(--brand-ink); }
+  .btn.primary:disabled {
+    background: #cbd5e1;
+    border-color: #cbd5e1;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn.ghost { background: transparent; border-color: var(--panel-edge); }
+  .btn.ghost:hover { background: var(--panel-edge-soft); }
+  .btn.full { width: 100%; padding: 13px 20px; font-size: 15px; }
+
+  /* ============================================================
+     TEST SCREEN — top bar
+     ============================================================ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--panel-edge);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .topbar .left, .topbar .right { display: flex; align-items: center; gap: 12px; }
+  .topbar .center {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .candidate-chip {
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .timer {
+    background: #fff;
+    border: 1px solid var(--panel-edge);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: 18px;
+    min-width: 100px;
+    text-align: center;
+  }
+  .timer.warn { color: var(--warn); border-color: #f2d28a; background: #fff8e6; }
+  .timer.crit { color: var(--danger); border-color: #f1b3af; background: #fdecec; }
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--panel-edge);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .icon-btn:hover { background: #f1f3f7; }
+
+  /* Passage navigation tabs */
+  .passage-tabs {
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-edge);
+    padding: 0 20px;
+    display: flex;
+    gap: 4px;
+  }
+  .passage-tab {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+  }
+  .passage-tab.active {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+  }
+  .passage-tab .q-range {
+    color: var(--ink-faint);
+    font-weight: 500;
+    margin-left: 6px;
+  }
+  .passage-tab.active .q-range { color: var(--brand); }
+
+  /* ============================================================
+     TWO-PANEL TEST LAYOUT
+     ============================================================ */
+  .test-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--panel-edge);
+    min-height: calc(100vh - 110px);
+  }
+  .panel {
+    background: var(--panel);
+    overflow-y: auto;
+    max-height: calc(100vh - 110px);
+    padding: 24px 28px 80px;
+  }
+  .panel-passage h2.passage-title {
+    font-size: 20px;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .panel-passage .passage-blurb {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    font-style: italic;
+  }
+  /* The actual passage paragraphs — the highlighting target */
+  .passage-text { font-size: 15px; }
+  .passage-text p {
+    margin: 0 0 16px;
+    /* The "user-select: text" is the default; we explicitly want it on. */
+    user-select: text;
+    -webkit-user-select: text;
+  }
+  .passage-text p .para-letter {
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-right: 8px;
+  }
+  /* CSS Custom Highlight API — primary highlight rendering path */
+  ::highlight(ace-user-highlight) {
+    background-color: var(--highlight);
+    color: var(--ink);
+  }
+  /* Fallback overlay layer (used only if Custom Highlight API absent) */
+  .highlight-overlay {
+    position: absolute;
+    pointer-events: none;
+    background-color: var(--highlight);
+    mix-blend-mode: multiply;
+    z-index: 0;
+    border-radius: 2px;
+  }
+  .panel-passage { position: relative; }
+
+  /* Highlight controls strip */
+  .highlight-controls {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(4px);
+    margin: -24px -28px 16px;
+    padding: 10px 28px;
+    border-bottom: 1px solid var(--panel-edge);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+    z-index: 5;
+  }
+  .highlight-controls .hint { color: var(--ink-faint); }
+
+  /* ============================================================
+     QUESTION PANEL
+     ============================================================ */
+  .panel-questions { background: #fafbfd; }
+  .question-group {
+    background: #fff;
+    border: 1px solid var(--panel-edge);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+  }
+  .qg-head {
+    font-weight: 700;
+    color: var(--brand-ink);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .qg-instructions {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .qg-instructions strong { color: var(--ink); }
+
+  /* Matching headings — heading bank */
+  .headings-bank {
+    background: #f8faff;
+    border: 1px solid #dde6f6;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+  .headings-bank h4 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--brand-ink);
+  }
+  .headings-bank ul { margin: 0; padding: 0 0 0 4px; list-style: none; }
+  .headings-bank li { margin-bottom: 4px; line-height: 1.5; }
+  .headings-bank .num { display: inline-block; min-width: 28px; font-weight: 600; color: var(--ink-soft); }
+
+  /* Individual question rows */
+  .q-row {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 10px 0;
+    border-top: 1px dashed var(--panel-edge);
+  }
+  .q-row:first-of-type { border-top: none; }
+  .q-num {
+    font-weight: 700;
+    color: var(--brand);
+    text-align: right;
+    padding-top: 2px;
+  }
+  .q-body { min-width: 0; }
+  .q-statement { line-height: 1.55; margin-bottom: 8px; }
+
+  /* Inputs in question rows */
+  .q-input {
+    padding: 6px 10px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 6px;
+    background: #fff;
+    width: 100%;
+    max-width: 220px;
+  }
+  .q-input:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(30,79,156,0.12);
+  }
+  .q-select { max-width: 110px; }
+
+  /* MCQ option list */
+  .mcq-options { display: grid; gap: 6px; }
+  .mcq-options label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .mcq-options label:hover { background: #f1f3f7; }
+  .mcq-options input { margin-top: 3px; }
+  .mcq-options .letter { font-weight: 600; min-width: 16px; }
+
+  /* Summary template */
+  .summary-template {
+    background: #fafbfd;
+    border: 1px solid var(--panel-edge);
+    border-radius: 8px;
+    padding: 14px 16px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .summary-template input {
+    display: inline-block;
+    width: 130px;
+    padding: 2px 8px;
+    border: 1px solid var(--brand);
+    border-radius: 5px;
+    background: #fff;
+    margin: 0 2px;
+    transform: translateY(-1px);
+  }
+  .summary-template .qnum {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand);
+    vertical-align: super;
+    margin-left: 2px;
+  }
+
+  /* ============================================================
+     BOTTOM BAR
+     ============================================================ */
+  .bottombar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border-top: 1px solid var(--panel-edge);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 25;
+  }
+  .answered-count {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .answered-count strong { color: var(--ink); font-size: 14px; }
+
+  /* ============================================================
+     RESULTS SCREEN
+     ============================================================ */
+  .results-wrap { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+  .results-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+  }
+  .results-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .results-name { font-size: 22px; margin: 0; }
+  .results-meta { color: var(--ink-faint); font-size: 13px; }
+  .score-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .score-block {
+    background: linear-gradient(180deg, var(--brand-soft) 0%, #ffffff 100%);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    text-align: center;
+  }
+  .score-block .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-ink);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .score-block .value {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+  }
+  .score-block .sub {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .passage-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .pb-cell {
+    background: #fafbfd;
+    border: 1px solid var(--panel-edge);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .pb-cell .pb-title { font-size: 13px; color: var(--ink-soft); margin-bottom: 4px; }
+  .pb-cell .pb-score { font-size: 20px; font-weight: 700; }
+  .results-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Band scale legend */
+  .band-explainer {
+    font-size: 13px;
+    color: var(--ink-soft);
+    background: #fafbfd;
+    border: 1px solid var(--panel-edge);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  /* ============================================================
+     LEARNING MODE
+     ============================================================ */
+  .learning-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
+  .lm-row {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 48px 1fr 1fr 24px;
+    gap: 12px;
+    align-items: center;
+  }
+  .lm-q { font-weight: 700; color: var(--brand); }
+  .lm-yours, .lm-correct {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .lm-yours .label, .lm-correct .label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    margin-bottom: 2px;
+  }
+  .lm-correct strong { color: var(--success); }
+  .lm-mark { font-size: 18px; text-align: center; }
+  .lm-mark.right { color: var(--success); }
+  .lm-mark.wrong { color: var(--danger); }
+  .lm-empty { color: var(--ink-faint); font-style: italic; }
+
+  /* ============================================================
+     UTILITY
+     ============================================================ */
+  .submit-confirm {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,30,55,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+  }
+  .submit-confirm.show { display: flex; }
+  .submit-confirm-card {
+    background: var(--panel);
+    border-radius: 12px;
+    max-width: 420px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .submit-confirm h3 { margin: 0 0 8px; }
+  .submit-confirm p { color: var(--ink-soft); margin: 0 0 18px; font-size: 14px; }
+  .submit-confirm .actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* Responsive: stack on narrow screens */
+  @media (max-width: 900px) {
+    .test-body { grid-template-columns: 1fr; }
+    .panel { max-height: none; }
+    .score-row, .passage-breakdown { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     WELCOME / SIGN-IN SCREEN
+     ============================================================ -->
+<section id="welcome" class="screen active">
+  <div class="welcome-wrap">
+    <div class="welcome-card">
+      <span class="ace-mark">ACE IELTS</span>
+      <h1 class="welcome-title">Reading Mock Test</h1>
+      <p class="welcome-sub">Academic format — 3 passages, 40 questions, 60 minutes.</p>
+
+      <div class="welcome-meta">
+        <strong>Before you begin:</strong> you will not be able to pause the timer. Make sure
+        you have a quiet environment and 60 uninterrupted minutes.
+      </div>
+
+      <div class="field">
+        <label for="studentName">Full name</label>
+        <input id="studentName" type="text" autocomplete="off" placeholder="Enter your full name as on ID">
+      </div>
+      <div class="field">
+        <label for="studentId">ACE ID</label>
+        <input id="studentId" type="text" autocomplete="off" placeholder="e.g. ACE-2026-001">
+      </div>
+
+      <button id="startBtn" class="btn primary full" disabled>Begin Test</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TEST SCREEN
+     ============================================================ -->
+<section id="testScreen" class="screen">
+  <div class="topbar">
+    <div class="left">
+      <span class="candidate-chip" id="candidateChip">—</span>
+    </div>
+    <div class="center">
+      ACE IELTS · Reading Mock 1
+    </div>
+    <div class="right">
+      <button class="icon-btn" id="logoutBtn" title="End the session and clear local progress">Log out</button>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+  </div>
+
+  <div class="passage-tabs" id="passageTabs">
+    <!-- populated by JS -->
+  </div>
+
+  <div class="test-body">
+    <div class="panel panel-passage" id="passagePanel">
+      <div class="highlight-controls">
+        <span>Highlight: click and drag to mark text.</span>
+        <button class="icon-btn" id="clearHighlightsBtn">Clear highlights</button>
+        <span class="hint" id="highlightModeNote"></span>
+      </div>
+      <div id="passageContent"><!-- populated by JS --></div>
+      <div class="highlight-overlay-layer" id="overlayLayer"></div>
+    </div>
+    <div class="panel panel-questions" id="questionsPanel">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <div class="answered-count">Answered: <strong id="answeredCount">0</strong> / 40</div>
+    <div>
+      <button class="btn ghost" id="reviewBtn">Review questions</button>
+      <button class="btn primary" id="submitBtn">Submit test</button>
+    </div>
+  </div>
+</section>
+
+<!-- Submit confirmation modal -->
+<div class="submit-confirm" id="submitConfirm">
+  <div class="submit-confirm-card">
+    <h3>Submit your test?</h3>
+    <p id="submitConfirmText">Once submitted, you cannot change your answers. Your score and a breakdown by passage will be shown immediately.</p>
+    <div class="actions">
+      <button class="btn ghost" id="cancelSubmitBtn">Keep working</button>
+      <button class="btn primary" id="confirmSubmitBtn">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESULTS SCREEN
+     ============================================================ -->
+<section id="resultsScreen" class="screen">
+  <div class="results-wrap">
+    <div class="results-card">
+      <div class="results-head">
+        <div>
+          <h1 class="results-name" id="resultName">—</h1>
+          <div class="results-meta" id="resultMeta">—</div>
+        </div>
+        <span class="ace-mark">Result</span>
+      </div>
+
+      <div class="score-row">
+        <div class="score-block">
+          <div class="label">Raw score</div>
+          <div class="value" id="resRaw">0</div>
+          <div class="sub">out of 40</div>
+        </div>
+        <div class="score-block">
+          <div class="label">Estimated band</div>
+          <div class="value" id="resBand">—</div>
+          <div class="sub">Academic Reading scale</div>
+        </div>
+        <div class="score-block">
+          <div class="label">Time used</div>
+          <div class="value" id="resTime">—</div>
+          <div class="sub">of 60:00</div>
+        </div>
+      </div>
+
+      <div class="passage-breakdown" id="passageBreakdown">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="band-explainer">
+        Your estimated band uses the standard public IELTS Academic Reading raw→band
+        conversion table. Real-test bands vary slightly with each exam version.
+      </div>
+
+      <div class="results-actions">
+        <button class="btn primary" id="goLearningBtn">Review answers in Learning Mode</button>
+        <button class="btn ghost" id="finishBtn">Finish</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEARNING MODE
+     ============================================================ -->
+<section id="learningScreen" class="screen">
+  <div class="learning-wrap">
+    <div class="results-card">
+      <div class="results-head">
+        <div>
+          <h1 class="results-name">Learning Mode</h1>
+          <div class="results-meta">Compare your answers against the correct ones.</div>
+        </div>
+        <button class="btn ghost" id="backToResultsBtn">Back to results</button>
+      </div>
+      <div id="learningRows"><!-- populated by JS --></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCRIPTS — content + module + app
+     ============================================================ -->
+<script src="../shared/band_descriptors.js"></script>
+<script src="content.js"></script>
+
+<script>
+/* ============================================================
+   ACE IELTS Reading site — main application script
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  /* ----- CONFIG (edit after deploying Apps Script) ----- */
+  const ACE_CONFIG = {
+    SHEETS_ENDPOINT: "",            // paste deployed Apps Script Web App URL here
+    SHARED_SECRET:   "",            // paste the same SHARED_SECRET from Code.gs here
+    SITE_ID:         "ielts-reading-mock",
+    MOCK_TEST_ID:    "reading-mock-1",
+  };
+
+  /* ----- SHORT REFS ----- */
+  const $ = (id) => document.getElementById(id);
+  const H = window.IELTS_HELPERS || {};
+  const CONTENT = window.READING_CONTENT;
+  if (!CONTENT) {
+    document.body.innerHTML =
+      '<div style="padding:40px;font-family:sans-serif;color:#b3261e">' +
+      '<h2>Configuration error</h2><p>content.js failed to load.</p></div>';
+    return;
+  }
+  const TOTAL_Q = CONTENT.totalQuestions;
+  const DURATION_S = CONTENT.durationMinutes * 60;
+
+  /* ----- STATE ----- */
+  const state = {
+    studentName: "",
+    studentId: "",
+    startedAt: null,
+    endsAt: null,           // ms timestamp; when the timer reaches 0
+    timeLeft: DURATION_S,
+    elapsed: 0,
+    answers: {},            // { 1: "ii", 7: "TRUE", 11: "distance", ... }
+    submitted: false,
+    submittedEarly: false,  // was the test submitted before the timer expired?
+    currentPassage: 1,
+    currentScreen: "welcome",
+    results: null,
+  };
+
+  /* ----- PERSISTENCE -----------------------------------------
+     Snapshots in-progress test to localStorage so that
+     accidental refresh / tab close / browser crash doesn't lose
+     the student's work. The timer is anchored to a real
+     wall-clock endsAt timestamp, so even if the page is closed
+     for 30 seconds, the timer correctly shows 30 fewer seconds
+     when the page reopens (i.e. you can't game the timer by
+     refreshing).
+     ---------------------------------------------------------- */
+  const STORAGE_KEY = "ace_reading_state_v1";
+  const STORAGE_TTL_MS = 4 * 60 * 60 * 1000; // ignore snapshots older than 4 hours
+
+  const PERSIST = {
+    save() {
+      try {
+        const snap = {
+          v: 2,
+          savedAt: Date.now(),
+          studentName: state.studentName,
+          studentId:   state.studentId,
+          startedAt:   state.startedAt,
+          endsAt:      state.endsAt,
+          elapsedAtSubmit: state.submitted ? state.elapsed : null,
+          answers:     state.answers,
+          currentPassage: state.currentPassage,
+          submitted:   state.submitted,
+          submittedEarly: state.submittedEarly,
+          currentScreen: state.currentScreen,
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
+      } catch (e) { /* private mode / quota — ignore */ }
+    },
+    load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const snap = JSON.parse(raw);
+        if (!snap || (snap.v !== 1 && snap.v !== 2)) return null;
+        // Stale snapshot — discard
+        if (!snap.savedAt || (Date.now() - snap.savedAt) > STORAGE_TTL_MS) {
+          this.clear();
+          return null;
+        }
+        // Must have name + ID to be usable. endsAt is required for in-progress;
+        // submitted sessions can be restored without endsAt being meaningful.
+        if (!snap.studentName || !snap.studentId) return null;
+        if (!snap.submitted && !snap.endsAt) return null;
+        return snap;
+      } catch (e) { return null; }
+    },
+    clear() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    },
+  };
+
+  /* ----- HIGHLIGHT ENGINE ------------------------------------
+     PRIMARY:  CSS Custom Highlight API — store Range objects in
+     a CSS.highlights registry. The browser renders the highlight
+     visually WITHOUT modifying the DOM, so selections that cross
+     paragraph or passage boundaries are safe.
+
+     FALLBACK: If CSS.highlights or Highlight() is unavailable,
+     we render absolutely-positioned rectangles via Range
+     .getClientRects() on an overlay layer. Still NO DOM mutation
+     of the source text.
+
+     Either approach guarantees Ismail's requirement that
+     highlighting cross paragraphs/passages without corruption.
+     ---------------------------------------------------------- */
+  const HIGHLIGHT = (function () {
+    const supportsApi =
+      typeof CSS !== "undefined" &&
+      typeof CSS.highlights !== "undefined" &&
+      typeof Highlight !== "undefined";
+
+    const HL_NAME = "ace-user-highlight";
+    const ranges = [];     // for API path: snapshot Ranges
+    const rectGroups = []; // for fallback: array of rect arrays
+
+    function init() {
+      if (supportsApi) {
+        const hl = new Highlight();
+        CSS.highlights.set(HL_NAME, hl);
+        $("highlightModeNote").textContent = "(modern highlight engine)";
+      } else {
+        $("highlightModeNote").textContent = "(overlay highlight engine)";
+      }
+    }
+
+    function passageRoot() { return $("passageContent"); }
+    function overlayLayer() { return $("overlayLayer"); }
+
+    /** Add a highlight from the current user selection. */
+    function captureSelection() {
+      const sel = document.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+      // Clamp the selection to within the passage container so the
+      // user can't accidentally highlight UI chrome.
+      const root = passageRoot();
+      const userRange = sel.getRangeAt(0).cloneRange();
+      if (!root.contains(userRange.startContainer) ||
+          !root.contains(userRange.endContainer)) {
+        return;
+      }
+      if (supportsApi) {
+        ranges.push(userRange);
+        const hl = CSS.highlights.get(HL_NAME);
+        hl.add(userRange);
+      } else {
+        // Fallback: snapshot the client rects RIGHT NOW. We do not
+        // hold the live Range because if the user scrolls or
+        // resizes, rect positions would shift; rects are stored
+        // as absolute positions relative to the passage container.
+        const rects = Array.from(userRange.getClientRects());
+        const rootBox = root.getBoundingClientRect();
+        const stored = rects.map(r => ({
+          left:   r.left   - rootBox.left,
+          top:    r.top    - rootBox.top  + root.scrollTop,
+          width:  r.width,
+          height: r.height,
+        }));
+        rectGroups.push(stored);
+        renderFallbackOverlay();
+      }
+      sel.removeAllRanges();
+    }
+
+    function renderFallbackOverlay() {
+      const layer = overlayLayer();
+      if (!layer) return;
+      layer.innerHTML = "";
+      const root = passageRoot();
+      // Match layer to passage container's content box.
+      layer.style.position = "absolute";
+      layer.style.left = "0";
+      layer.style.top  = "0";
+      layer.style.width = root.scrollWidth + "px";
+      layer.style.height = root.scrollHeight + "px";
+      rectGroups.forEach(group => {
+        group.forEach(rect => {
+          const div = document.createElement("div");
+          div.className = "highlight-overlay";
+          div.style.left   = rect.left + "px";
+          div.style.top    = rect.top + "px";
+          div.style.width  = rect.width + "px";
+          div.style.height = rect.height + "px";
+          layer.appendChild(div);
+        });
+      });
+    }
+
+    function clearAll() {
+      if (supportsApi) {
+        const hl = CSS.highlights.get(HL_NAME);
+        if (hl) hl.clear();
+        ranges.length = 0;
+      } else {
+        rectGroups.length = 0;
+        const layer = overlayLayer();
+        if (layer) layer.innerHTML = "";
+      }
+    }
+
+    function bind() {
+      // Capture on mouseup within the passage panel.
+      const root = passageRoot();
+      if (!root) return;
+      root.addEventListener("mouseup", function () {
+        // Defer slightly so the selection is finalised first.
+        setTimeout(captureSelection, 0);
+      });
+      // Touch: end of touchend treated same way (mobile/tablet).
+      root.addEventListener("touchend", function () {
+        setTimeout(captureSelection, 0);
+      });
+      // Resize → re-layout fallback overlays.
+      if (!supportsApi) {
+        window.addEventListener("resize", renderFallbackOverlay);
+      }
+    }
+
+    return { init, bind, clearAll };
+  })();
+
+  /* ============================================================
+     RENDER — passages + question groups
+     ============================================================ */
+
+  function renderPassageTabs() {
+    const tabsHost = $("passageTabs");
+    tabsHost.innerHTML = "";
+    CONTENT.passages.forEach((p, i) => {
+      const firstQ = p.questionGroups[0].questions[0].number;
+      const lastG = p.questionGroups[p.questionGroups.length - 1];
+      const lastQ = lastG.questions[lastG.questions.length - 1].number;
+      const btn = document.createElement("button");
+      btn.className = "passage-tab" + (i === 0 ? " active" : "");
+      btn.innerHTML =
+        "Passage " + p.number +
+        "<span class='q-range'>(Q" + firstQ + "–" + lastQ + ")</span>";
+      btn.addEventListener("click", () => switchPassage(p.number));
+      tabsHost.appendChild(btn);
+    });
+  }
+
+  function switchPassage(num) {
+    state.currentPassage = num;
+    document.querySelectorAll(".passage-tab").forEach((tab, i) => {
+      tab.classList.toggle("active", i === num - 1);
+    });
+    renderPassageBody();
+    renderQuestionsBody();
+    // Reset scroll positions
+    $("passagePanel").scrollTop = 0;
+    $("questionsPanel").scrollTop = 0;
+    // Re-bind highlight capture on the new passage content
+    HIGHLIGHT.bind();
+  }
+
+  function renderPassageBody() {
+    const p = CONTENT.passages[state.currentPassage - 1];
+    const host = $("passageContent");
+    host.innerHTML = "";
+
+    const title = document.createElement("h2");
+    title.className = "passage-title";
+    title.textContent = "Passage " + p.number + " — " + p.title;
+    host.appendChild(title);
+
+    const blurb = document.createElement("p");
+    blurb.className = "passage-blurb";
+    blurb.textContent = p.blurb;
+    host.appendChild(blurb);
+
+    const passageText = document.createElement("div");
+    passageText.className = "passage-text";
+    p.paragraphs.forEach(par => {
+      const para = document.createElement("p");
+      para.dataset.paragraphLetter = par.letter;
+      const letterSpan = document.createElement("span");
+      letterSpan.className = "para-letter";
+      letterSpan.textContent = par.letter;
+      para.appendChild(letterSpan);
+      para.appendChild(document.createTextNode(par.text));
+      passageText.appendChild(para);
+    });
+    host.appendChild(passageText);
+  }
+
+  function renderQuestionsBody() {
+    const p = CONTENT.passages[state.currentPassage - 1];
+    const host = $("questionsPanel");
+    host.innerHTML = "";
+
+    p.questionGroups.forEach(g => {
+      host.appendChild(renderQuestionGroup(g));
+    });
+  }
+
+  function renderQuestionGroup(g) {
+    const card = document.createElement("div");
+    card.className = "question-group";
+
+    const head = document.createElement("div");
+    head.className = "qg-head";
+    head.textContent = "Questions " + g.range;
+    card.appendChild(head);
+
+    const ins = document.createElement("div");
+    ins.className = "qg-instructions";
+    ins.innerHTML = escapeForInstructions(g.instructions);
+    card.appendChild(ins);
+
+    if (g.type === "matching_headings") {
+      // Heading bank
+      const bank = document.createElement("div");
+      bank.className = "headings-bank";
+      const hh = document.createElement("h4");
+      hh.textContent = "List of headings";
+      bank.appendChild(hh);
+      const ul = document.createElement("ul");
+      g.headings.forEach(h => {
+        const li = document.createElement("li");
+        li.innerHTML = '<span class="num">' + h.num + '</span> ' + escapeHtml(h.text);
+        ul.appendChild(li);
+      });
+      bank.appendChild(ul);
+      if (g.example) {
+        const ex = document.createElement("div");
+        ex.style.marginTop = "6px";
+        ex.style.fontStyle = "italic";
+        ex.style.color = "var(--ink-faint)";
+        ex.innerHTML = "Example: Paragraph " + g.example.paragraph + " → <strong>" + g.example.answer + "</strong>";
+        bank.appendChild(ex);
+      }
+      card.appendChild(bank);
+      g.questions.forEach(q => {
+        const row = makeQRow(q.number,
+          "Paragraph " + q.paragraph,
+          makeHeadingSelect(q.number, g.headings)
+        );
+        card.appendChild(row);
+      });
+    } else if (g.type === "true_false_not_given") {
+      g.questions.forEach(q => {
+        const row = makeQRow(q.number, q.statement,
+          makeTriSelect(q.number, ["TRUE", "FALSE", "NOT GIVEN"])
+        );
+        card.appendChild(row);
+      });
+    } else if (g.type === "yes_no_not_given") {
+      g.questions.forEach(q => {
+        const row = makeQRow(q.number, q.statement,
+          makeTriSelect(q.number, ["YES", "NO", "NOT GIVEN"])
+        );
+        card.appendChild(row);
+      });
+    } else if (g.type === "multiple_choice") {
+      g.questions.forEach(q => {
+        const row = makeMCRow(q);
+        card.appendChild(row);
+      });
+    } else if (g.type === "sentence_completion") {
+      g.questions.forEach(q => {
+        const row = makeQRow(q.number, q.sentence,
+          makeTextInput(q.number, 30)
+        );
+        card.appendChild(row);
+      });
+    } else if (g.type === "summary_completion") {
+      // Render the whole summary with inline inputs.
+      const tpl = document.createElement("div");
+      tpl.className = "summary-template";
+      let html = escapeHtml(g.summary);
+      g.questions.forEach(q => {
+        const inputHtml =
+          '<input type="text" class="q-input" data-qnum="' + q.number + '" maxlength="30">' +
+          '<span class="qnum">Q' + q.number + '</span>';
+        html = html.replace("{{" + q.number + "}}", inputHtml);
+      });
+      tpl.innerHTML = html;
+      card.appendChild(tpl);
+    } else if (g.type === "matching_information") {
+      g.questions.forEach(q => {
+        const row = makeQRow(q.number, q.statement,
+          makeTextInput(q.number, 1, "A-G")
+        );
+        card.appendChild(row);
+      });
+    }
+
+    return card;
+  }
+
+  function escapeForInstructions(s) {
+    return escapeHtml(s)
+      .replace(/(NO MORE THAN [A-Z ]+ WORDS|TRUE|FALSE|NOT GIVEN|YES|NO)/g, "<strong>$1</strong>");
+  }
+
+  function makeQRow(num, statement, inputEl) {
+    const row = document.createElement("div");
+    row.className = "q-row";
+
+    const numEl = document.createElement("div");
+    numEl.className = "q-num";
+    numEl.textContent = num;
+    row.appendChild(numEl);
+
+    const body = document.createElement("div");
+    body.className = "q-body";
+    const st = document.createElement("div");
+    st.className = "q-statement";
+    st.textContent = statement;
+    body.appendChild(st);
+    body.appendChild(inputEl);
+    row.appendChild(body);
+
+    return row;
+  }
+
+  function makeMCRow(q) {
+    const row = document.createElement("div");
+    row.className = "q-row";
+
+    const numEl = document.createElement("div");
+    numEl.className = "q-num";
+    numEl.textContent = q.number;
+    row.appendChild(numEl);
+
+    const body = document.createElement("div");
+    body.className = "q-body";
+    const st = document.createElement("div");
+    st.className = "q-statement";
+    st.textContent = q.stem;
+    body.appendChild(st);
+    const opts = document.createElement("div");
+    opts.className = "mcq-options";
+    q.options.forEach(opt => {
+      const label = document.createElement("label");
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "mcq-" + q.number;
+      radio.value = opt.letter;
+      radio.addEventListener("change", () => recordAnswer(q.number, opt.letter));
+      // Restore prior selection
+      if (state.answers[q.number] === opt.letter) radio.checked = true;
+      const letter = document.createElement("span");
+      letter.className = "letter";
+      letter.textContent = opt.letter;
+      const text = document.createElement("span");
+      text.textContent = opt.text;
+      label.appendChild(radio);
+      label.appendChild(letter);
+      label.appendChild(text);
+      opts.appendChild(label);
+    });
+    body.appendChild(opts);
+    row.appendChild(body);
+    return row;
+  }
+
+  function makeHeadingSelect(num, headings) {
+    const sel = document.createElement("select");
+    sel.className = "q-input q-select";
+    sel.dataset.qnum = num;
+    const blank = document.createElement("option");
+    blank.value = "";
+    blank.textContent = "—";
+    sel.appendChild(blank);
+    headings.forEach(h => {
+      const o = document.createElement("option");
+      o.value = h.num;
+      o.textContent = h.num;
+      sel.appendChild(o);
+    });
+    if (state.answers[num] !== undefined) sel.value = state.answers[num];
+    sel.addEventListener("change", () => recordAnswer(num, sel.value));
+    return sel;
+  }
+
+  function makeTriSelect(num, values) {
+    const sel = document.createElement("select");
+    sel.className = "q-input q-select";
+    sel.dataset.qnum = num;
+    const blank = document.createElement("option");
+    blank.value = "";
+    blank.textContent = "—";
+    sel.appendChild(blank);
+    values.forEach(v => {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v;
+      sel.appendChild(o);
+    });
+    if (state.answers[num] !== undefined) sel.value = state.answers[num];
+    sel.addEventListener("change", () => recordAnswer(num, sel.value));
+    return sel;
+  }
+
+  function makeTextInput(num, maxLen, placeholder) {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "q-input";
+    input.dataset.qnum = num;
+    input.maxLength = maxLen;
+    if (placeholder) input.placeholder = placeholder;
+    if (state.answers[num] !== undefined) input.value = state.answers[num];
+    input.addEventListener("input", () => recordAnswer(num, input.value));
+    return input;
+  }
+
+  /* ============================================================
+     ANSWERS
+     ============================================================ */
+
+  function recordAnswer(num, value) {
+    if (value === undefined || value === null || value === "") {
+      delete state.answers[num];
+    } else {
+      state.answers[num] = String(value).trim();
+    }
+    updateAnsweredCount();
+    PERSIST.save();
+  }
+
+  function updateAnsweredCount() {
+    $("answeredCount").textContent = Object.keys(state.answers).length;
+  }
+
+  /* Capture summary-completion inputs (event delegation for the
+     dynamic .summary-template inputs). */
+  document.addEventListener("input", function (e) {
+    const t = e.target;
+    if (t && t.dataset && t.dataset.qnum) {
+      // Already handled by direct listener above for question-level inputs;
+      // delegation is a safety net for summary-completion inputs in templates.
+      const num = parseInt(t.dataset.qnum, 10);
+      if (!isNaN(num)) recordAnswer(num, t.value);
+    }
+  });
+
+  /* ============================================================
+     TIMER
+     ============================================================ */
+
+  let timerInterval = null;
+  function startTimer(opts) {
+    opts = opts || {};
+    if (opts.resume && state.endsAt) {
+      // Resuming — derive timeLeft from wall-clock endsAt.
+      state.timeLeft = Math.max(0, Math.round((state.endsAt - Date.now()) / 1000));
+      state.elapsed  = DURATION_S - state.timeLeft;
+    } else {
+      state.startedAt = Date.now();
+      state.endsAt    = state.startedAt + DURATION_S * 1000;
+      state.timeLeft  = DURATION_S;
+      state.elapsed   = 0;
+    }
+    updateTimerDisplay();
+    PERSIST.save();
+    timerInterval = setInterval(tick, 1000);
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      submitTest(true);
+    }
+  }
+  function tick() {
+    state.timeLeft -= 1;
+    state.elapsed  += 1;
+    updateTimerDisplay();
+    // Cheap save — happens every second, snapshot is small.
+    PERSIST.save();
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      submitTest(true /* auto */);
+    }
+  }
+  function stopTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  function updateTimerDisplay() {
+    const t = $("timer");
+    t.textContent = formatTime(state.timeLeft);
+    t.classList.toggle("warn", state.timeLeft <= 10 * 60 && state.timeLeft > 5 * 60);
+    t.classList.toggle("crit", state.timeLeft <= 5 * 60);
+  }
+  function formatTime(s) {
+    s = Math.max(0, s | 0);
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return pad2(m) + ":" + pad2(r);
+  }
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+
+  /* ============================================================
+     GRADING
+     ============================================================ */
+
+  function normaliseAnswer(s) {
+    if (s === undefined || s === null) return "";
+    return String(s).trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  function isCorrect(num, given) {
+    const key = CONTENT.answerKey[num];
+    const g = normaliseAnswer(given);
+    if (Array.isArray(key)) {
+      return key.some(k => normaliseAnswer(k) === g);
+    }
+    return normaliseAnswer(key) === g;
+  }
+
+  function gradeAll() {
+    const perQuestion = {};
+    let raw = 0;
+    for (let i = 1; i <= TOTAL_Q; i++) {
+      const given = state.answers[i];
+      const ok = given !== undefined && isCorrect(i, given);
+      perQuestion[i] = ok;
+      if (ok) raw++;
+    }
+
+    // Per-passage breakdown
+    const perPassage = CONTENT.passages.map(p => {
+      let pCorrect = 0, pTotal = 0;
+      p.questionGroups.forEach(g => {
+        g.questions.forEach(q => {
+          pTotal++;
+          if (perQuestion[q.number]) pCorrect++;
+        });
+      });
+      return { number: p.number, correct: pCorrect, total: pTotal };
+    });
+
+    const band = H.bandFromRawReading ? H.bandFromRawReading(raw) : null;
+
+    return { raw, band, perQuestion, perPassage };
+  }
+
+  /* ============================================================
+     SUBMIT FLOW
+     ============================================================ */
+
+  function showSubmitConfirm() {
+    const unanswered = TOTAL_Q - Object.keys(state.answers).length;
+    $("submitConfirmText").innerHTML =
+      "Once submitted, you cannot change your answers. " +
+      (unanswered > 0
+        ? "<br><br><strong>" + unanswered + " questions are unanswered.</strong> They will be marked as incorrect."
+        : "All 40 questions are answered.");
+    $("submitConfirm").classList.add("show");
+  }
+  function hideSubmitConfirm() {
+    $("submitConfirm").classList.remove("show");
+  }
+
+  function submitTest(auto) {
+    hideSubmitConfirm();
+    if (state.submitted) return;
+    state.submitted = true;
+    state.submittedEarly = (auto !== true);
+    stopTimer();
+    state.results = gradeAll();
+    renderResults(auto === true);
+    postToSheets();
+    // NOTE: we no longer clear PERSIST here. The submitted state stays
+    // until Finish or Log Out, so refresh on the results screen keeps
+    // the student on the results screen.
+    showScreen("resultsScreen");
+    PERSIST.save();
+  }
+
+  function renderResults(autoSubmitted) {
+    const r = state.results;
+    $("resultName").textContent = state.studentName + " · " + state.studentId;
+    $("resultMeta").textContent =
+      CONTENT.title + " · submitted " + new Date().toLocaleString() +
+      (autoSubmitted ? " (time expired)" : "");
+    $("resRaw").textContent = r.raw;
+    $("resBand").textContent = r.band !== null ? r.band.toFixed(1) : "—";
+    $("resTime").textContent = formatTime(state.elapsed);
+
+    const pb = $("passageBreakdown");
+    pb.innerHTML = "";
+    r.perPassage.forEach(p => {
+      const cell = document.createElement("div");
+      cell.className = "pb-cell";
+      cell.innerHTML =
+        '<div class="pb-title">Passage ' + p.number + '</div>' +
+        '<div class="pb-score">' + p.correct + ' / ' + p.total + '</div>';
+      pb.appendChild(cell);
+    });
+  }
+
+  function renderLearningMode() {
+    const host = $("learningRows");
+    host.innerHTML = "";
+    for (let n = 1; n <= TOTAL_Q; n++) {
+      const given = state.answers[n];
+      const correctRaw = CONTENT.answerKey[n];
+      const correctDisplay = Array.isArray(correctRaw) ? correctRaw[0] : correctRaw;
+      const ok = state.results && state.results.perQuestion[n];
+      const row = document.createElement("div");
+      row.className = "lm-row";
+      row.innerHTML =
+        '<div class="lm-q">Q' + n + '</div>' +
+        '<div class="lm-yours"><span class="label">Your answer</span>' +
+          (given !== undefined && given !== "" ? escapeHtml(given) : '<span class="lm-empty">No answer</span>') +
+        '</div>' +
+        '<div class="lm-correct"><span class="label">Correct</span><strong>' + escapeHtml(correctDisplay) + '</strong></div>' +
+        '<div class="lm-mark ' + (ok ? "right" : "wrong") + '">' + (ok ? "✓" : "✗") + '</div>';
+      host.appendChild(row);
+    }
+  }
+
+  /* ============================================================
+     SHEETS POST
+     ============================================================ */
+
+  function postToSheets() {
+    if (!ACE_CONFIG.SHEETS_ENDPOINT) {
+      console.info("Sheets endpoint not configured — skipping POST.");
+      return;
+    }
+    const r = state.results || {};
+    const perPassage = r.perPassage || [];
+    const submittedEarly = state.elapsed < DURATION_S;
+    const payload = {
+      secret: ACE_CONFIG.SHARED_SECRET,
+      submission_type: "reading",
+      submitted_at_iso: new Date().toISOString(),
+      submitted_at_local: new Date().toLocaleString(),
+      student_name: state.studentName,
+      student_id: state.studentId,
+      site_id: ACE_CONFIG.SITE_ID,
+      mock_test_id: ACE_CONFIG.MOCK_TEST_ID,
+      duration_seconds: state.elapsed,
+      submitted_early: submittedEarly,
+      raw_score: r.raw,
+      band: r.band,
+      passage1_correct: perPassage[0] ? perPassage[0].correct : "",
+      passage1_total:   perPassage[0] ? perPassage[0].total   : "",
+      passage2_correct: perPassage[1] ? perPassage[1].correct : "",
+      passage2_total:   perPassage[1] ? perPassage[1].total   : "",
+      passage3_correct: perPassage[2] ? perPassage[2].correct : "",
+      passage3_total:   perPassage[2] ? perPassage[2].total   : "",
+      question_results_json: JSON.stringify(r.perQuestion || {}),
+      answers_json:          JSON.stringify(state.answers || {}),
+    };
+    fetch(ACE_CONFIG.SHEETS_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(payload),
+    }).catch(err => console.warn("Sheets POST failed", err));
+  }
+
+  /* ============================================================
+     SCREEN SWITCH
+     ============================================================ */
+
+  function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    $(id).classList.add("active");
+    window.scrollTo({ top: 0 });
+    state.currentScreen = id;
+    PERSIST.save();
+  }
+
+  /* ============================================================
+     ESCAPE
+     ============================================================ */
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  /* ============================================================
+     EVENT WIRING
+     ============================================================ */
+
+  function checkStartEnabled() {
+    const ok =
+      $("studentName").value.trim().length > 0 &&
+      $("studentId").value.trim().length  > 0;
+    $("startBtn").disabled = !ok;
+  }
+  $("studentName").addEventListener("input", checkStartEnabled);
+  $("studentId").addEventListener("input", checkStartEnabled);
+
+  $("startBtn").addEventListener("click", function () {
+    state.studentName = $("studentName").value.trim();
+    state.studentId   = $("studentId").value.trim();
+    $("candidateChip").textContent = state.studentName + " · " + state.studentId;
+    showScreen("testScreen");
+    HIGHLIGHT.init();
+    renderPassageTabs();
+    switchPassage(1);
+    startTimer({ resume: false });
+    HIGHLIGHT.bind();
+  });
+
+  $("logoutBtn").addEventListener("click", function () {
+    if (confirm("End this session? All progress will be lost.")) {
+      stopTimer();
+      PERSIST.clear();
+      window.location.reload();
+    }
+  });
+
+  $("submitBtn").addEventListener("click", showSubmitConfirm);
+  $("cancelSubmitBtn").addEventListener("click", hideSubmitConfirm);
+  $("confirmSubmitBtn").addEventListener("click", function () { submitTest(false); });
+
+  $("reviewBtn").addEventListener("click", function () {
+    // Jump to first unanswered question.
+    for (let n = 1; n <= TOTAL_Q; n++) {
+      if (state.answers[n] === undefined) {
+        // Find which passage owns this question
+        for (const p of CONTENT.passages) {
+          for (const g of p.questionGroups) {
+            for (const q of g.questions) {
+              if (q.number === n) {
+                switchPassage(p.number);
+                const input = document.querySelector('[data-qnum="' + n + '"]');
+                if (input) {
+                  input.focus();
+                  input.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+    alert("All 40 questions are answered.");
+  });
+
+  $("clearHighlightsBtn").addEventListener("click", function () {
+    HIGHLIGHT.clearAll();
+  });
+
+  $("goLearningBtn").addEventListener("click", function () {
+    renderLearningMode();
+    showScreen("learningScreen");
+  });
+  $("backToResultsBtn").addEventListener("click", function () {
+    showScreen("resultsScreen");
+  });
+  $("finishBtn").addEventListener("click", function () {
+    if (confirm("Finish and return to the start screen?")) {
+      PERSIST.clear();
+      window.location.reload();
+    }
+  });
+
+  // Keyboard shortcut: Esc closes the submit modal.
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") hideSubmitConfirm();
+  });
+
+  /* ============================================================
+     RESUME — on first load, restore whatever screen we were on.
+     Only Finish or Log Out clears the saved session.
+     ============================================================ */
+  (function tryResume() {
+    const snap = PERSIST.load();
+    if (!snap) return;
+
+    // Restore identity + answers
+    state.studentName    = snap.studentName;
+    state.studentId      = snap.studentId;
+    state.startedAt      = snap.startedAt;
+    state.endsAt         = snap.endsAt;
+    state.answers        = snap.answers || {};
+    state.currentPassage = snap.currentPassage || 1;
+    state.submitted      = !!snap.submitted;
+    state.submittedEarly = !!snap.submittedEarly;
+
+    $("candidateChip").textContent = state.studentName + " · " + state.studentId;
+
+    if (state.submitted) {
+      // SUBMITTED PATH — re-grade and show results (or learning) screen.
+      state.elapsed = snap.elapsedAtSubmit || (DURATION_S - Math.max(0, Math.round((snap.endsAt - state.startedAt) / 1000)));
+      state.timeLeft = 0;
+      state.results = gradeAll();
+      renderResults(state.submittedEarly === false);
+      const target = (snap.currentScreen === "learningScreen") ? "learningScreen" : "resultsScreen";
+      if (target === "learningScreen") {
+        renderLearningMode();
+      }
+      showScreen(target);
+      showResumeToast("Welcome back — your results are still here");
+      return;
+    }
+
+    // IN-PROGRESS PATH — restore test screen + resume timer.
+    const left = Math.round((snap.endsAt - Date.now()) / 1000);
+    if (left <= 0) {
+      // Timer expired while the page was closed — auto-submit using saved answers.
+      state.timeLeft = 0;
+      state.elapsed  = DURATION_S;
+      submitTest(true);
+      return;
+    }
+    state.timeLeft = left;
+    state.elapsed  = DURATION_S - left;
+    showScreen("testScreen");
+    HIGHLIGHT.init();
+    renderPassageTabs();
+    switchPassage(state.currentPassage);
+    updateAnsweredCount();
+    HIGHLIGHT.bind();
+    startTimer({ resume: true });
+    showResumeToast("Welcome back — your test has resumed");
+  })();
+
+  function showResumeToast(message) {
+    const toast = document.createElement("div");
+    toast.textContent = message || "Welcome back — your test has resumed";
+    toast.style.cssText =
+      "position:fixed;left:50%;top:80px;transform:translateX(-50%);" +
+      "background:#1f2329;color:#fff;padding:10px 18px;border-radius:999px;" +
+      "font-size:13px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.2);" +
+      "transition:opacity 0.4s;";
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = "0"; }, 3500);
+    setTimeout(() => { toast.remove(); }, 4000);
+  }
+
+})();
+</script>
+
+</body>
+</html>

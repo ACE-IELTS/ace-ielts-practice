@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Writing Mock Test | ACE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     RESET / BASE  (matches reading/index.html for consistency)
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button { font-family: inherit; }
+  input, textarea, select { font-family: inherit; font-size: inherit; }
+  :root {
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --ink-faint: #94a3b8;
+    --bg: #f8fafc;
+    --panel: #ffffff;
+    --panel-edge: #e2e8f0;
+    --panel-edge-soft: #f1f5f9;
+    --brand: #4f46e5;
+    --brand-soft: #eef2ff;
+    --brand-ink: #3730a3;
+    --success: #059669;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 1px 3px rgba(15,23,42,0.05), 0 10px 30px rgba(15,23,42,0.06);
+    --shadow-lg: 0 4px 12px rgba(15,23,42,0.08), 0 24px 60px rgba(15,23,42,0.10);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* WELCOME */
+  .welcome-wrap {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+    background:
+      radial-gradient(at 0% 0%, rgba(79,70,229,0.06) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(20,184,166,0.05) 0px, transparent 50%),
+      var(--bg);
+  }
+  .welcome-card {
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: var(--radius-lg);
+    width: 100%; max-width: 540px; padding: 44px 44px 36px;
+    box-shadow: var(--shadow-lg);
+  }
+  .ace-mark {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--brand-soft); color: var(--brand-ink); font-weight: 700;
+    letter-spacing: 0.04em; padding: 5px 12px; border-radius: 999px;
+    font-size: 11px; text-transform: uppercase; margin-bottom: 22px;
+  }
+  .welcome-title {
+    font-size: 30px; line-height: 1.15; margin: 0 0 10px;
+    letter-spacing: -0.02em; font-weight: 700;
+  }
+  .welcome-sub   { color: var(--ink-soft); margin: 0 0 28px; font-size: 15px; }
+  .welcome-meta {
+    background: var(--brand-soft); border: 1px solid #c7d2fe; border-radius: var(--radius-sm);
+    padding: 14px 16px; font-size: 13px; color: var(--brand-ink); margin-bottom: 26px; line-height: 1.6;
+  }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600;
+    margin-bottom: 6px; color: var(--ink-soft);
+  }
+  .field input {
+    width: 100%; padding: 12px 14px;
+    border: 1px solid var(--panel-edge); border-radius: var(--radius-sm); background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s; font-size: 15px;
+  }
+  .field input:focus {
+    outline: none; border-color: var(--brand);
+    box-shadow: 0 0 0 4px rgba(79,70,229,0.12);
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 20px; border-radius: var(--radius-sm); border: 1px solid transparent;
+    background: #fff; color: var(--ink); font-weight: 600; font-size: 14px; cursor: pointer;
+    letter-spacing: -0.005em;
+    transition: background 0.15s, border-color 0.15s, transform 0.05s, box-shadow 0.15s;
+  }
+  .btn:hover { background: var(--panel-edge-soft); }
+  .btn:active { transform: translateY(1px); }
+  .btn.primary {
+    background: var(--brand); color: #fff; border-color: var(--brand);
+    box-shadow: 0 1px 2px rgba(79,70,229,0.2), 0 4px 12px rgba(79,70,229,0.15);
+  }
+  .btn.primary:hover { background: var(--brand-ink); border-color: var(--brand-ink); }
+  .btn.primary:disabled { background: #cbd5e1; border-color: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+  .btn.ghost { background: transparent; border-color: var(--panel-edge); }
+  .btn.full { width: 100%; padding: 13px 20px; font-size: 15px; }
+
+  /* TOP BAR */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--panel-edge);
+    padding: 12px 24px; display: flex; align-items: center; gap: 16px;
+  }
+  .topbar .left, .topbar .right { display: flex; align-items: center; gap: 12px; }
+  .topbar .center { flex: 1; text-align: center; font-size: 13px; color: var(--ink-soft); }
+  .candidate-chip {
+    background: var(--brand-soft); color: var(--brand-ink);
+    padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  }
+  .timer {
+    background: #fff; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 8px 14px; font-variant-numeric: tabular-nums; font-weight: 600;
+    font-size: 18px; min-width: 100px; text-align: center;
+  }
+  .timer.warn { color: var(--warn); border-color: #f2d28a; background: #fff8e6; }
+  .timer.crit { color: var(--danger); border-color: #f1b3af; background: #fdecec; }
+  .icon-btn {
+    background: transparent; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 6px 10px; font-size: 13px; cursor: pointer;
+  }
+  .icon-btn:hover { background: #f1f3f7; }
+
+  /* TASK TABS */
+  .task-tabs {
+    background: var(--panel); border-bottom: 1px solid var(--panel-edge);
+    padding: 0 20px; display: flex; gap: 4px;
+  }
+  .task-tab {
+    padding: 10px 16px; border: none; background: transparent;
+    color: var(--ink-soft); font-size: 14px; font-weight: 600;
+    cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .task-tab.active { color: var(--brand); border-bottom-color: var(--brand); }
+  .task-tab .word-target { color: var(--ink-faint); font-weight: 500; margin-left: 6px; }
+  .task-tab.active .word-target { color: var(--brand); }
+
+  /* TWO-PANEL LAYOUT */
+  .test-body {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--panel-edge); min-height: calc(100vh - 110px);
+  }
+  .panel {
+    background: var(--panel); overflow-y: auto;
+    max-height: calc(100vh - 110px); padding: 24px 28px 80px;
+  }
+  .panel-prompt h2.task-title {
+    font-size: 22px; margin: 0 0 4px; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .panel-prompt .task-meta {
+    font-size: 12px; color: var(--ink-faint); margin: 0 0 18px;
+    text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+  }
+  .panel-prompt .task-para {
+    font-size: 15.5px; line-height: 1.65; margin: 0 0 16px; color: var(--ink);
+  }
+  .panel-prompt .task-description {
+    /* The "The line graph below shows..." line — keep it neutral. */
+  }
+  .panel-prompt .task-task {
+    /* The "Summarise the information..." instruction — emphasise. */
+    font-weight: 600;
+  }
+  .panel-prompt .task-prompt {
+    /* Task 2 opening prompt — slightly larger, in a quote-style frame. */
+    padding: 14px 16px;
+    background: var(--brand-soft);
+    border-left: 3px solid var(--brand);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--brand-ink);
+    font-style: italic;
+  }
+  .panel-prompt .task-question {
+    /* Task 2 question — bold and inked. */
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .panel-prompt .task-examples {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  .panel-prompt .task-tail {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--panel-edge);
+  }
+  .panel-prompt .task-tail-line {
+    font-size: 14px; color: var(--ink-soft); margin: 0 0 4px;
+  }
+  .panel-prompt .task-tail-line:last-child { margin-bottom: 0; }
+  .panel-prompt .visual-wrap {
+    margin: 4px 0 18px;
+    background: #fafbfd;
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--radius-md);
+    padding: 16px;
+  }
+  .panel-prompt .visual-caption {
+    font-size: 12px; color: var(--ink-faint); margin-top: 8px; font-style: italic;
+  }
+
+  /* EDITOR */
+  .panel-editor { background: #fafbfd; display: flex; flex-direction: column; }
+  .editor-toolbar {
+    display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .word-pill {
+    background: #fff; border: 1px solid var(--panel-edge); border-radius: 999px;
+    padding: 5px 12px; font-size: 13px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .word-pill .num { font-weight: 700; color: var(--ink); margin-right: 4px; }
+  .word-pill.ok    { color: var(--success); border-color: #b9e0c6; background: #ebf6ef; }
+  .word-pill.short { color: var(--warn);    border-color: #f2d28a; background: #fff8e6; }
+  .editor-toolbar .spacer { flex: 1; }
+  .editor-textarea {
+    flex: 1; min-height: 360px;
+    width: 100%; padding: 16px 18px;
+    border: 1px solid var(--panel-edge); border-radius: 10px;
+    background: #fff; font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", monospace;
+    font-size: 14.5px; line-height: 1.7;
+    resize: vertical;
+  }
+  .editor-textarea:focus {
+    outline: none; border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(30,79,156,0.12);
+  }
+  .paste-warning {
+    display: none; background: #fdecec; border: 1px solid #f1b3af; color: var(--danger);
+    padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-top: 10px;
+  }
+  .paste-warning.show { display: block; }
+
+  /* BOTTOM BAR */
+  .bottombar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--panel); border-top: 1px solid var(--panel-edge);
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 25;
+  }
+  .bb-left { font-size: 13px; color: var(--ink-soft); }
+  .bb-left strong { color: var(--ink); }
+
+  /* SUBMIT MODAL */
+  .submit-confirm {
+    position: fixed; inset: 0; background: rgba(20,30,55,0.5);
+    display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100;
+  }
+  .submit-confirm.show { display: flex; }
+  .submit-confirm-card {
+    background: var(--panel); border-radius: 12px;
+    max-width: 460px; padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .submit-confirm h3 { margin: 0 0 8px; }
+  .submit-confirm p { color: var(--ink-soft); margin: 0 0 14px; font-size: 14px; }
+  .submit-confirm .actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* RESULTS SCREEN */
+  .results-wrap { max-width: 920px; margin: 0 auto; padding: 32px 24px 80px; }
+  .results-card {
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: var(--radius-lg);
+    padding: 36px; margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+  }
+  .results-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 12px;
+  }
+  .results-name { font-size: 22px; margin: 0; }
+  .results-meta { color: var(--ink-faint); font-size: 13px; }
+  .estimate-note {
+    background: #fff8e6; border: 1px solid #f2d28a; color: #6b4900;
+    border-radius: 8px; padding: 12px 14px; font-size: 13px; margin-bottom: 22px;
+  }
+  .estimate-note strong { color: #4a3300; }
+  .task-result {
+    border-top: 1px solid var(--panel-edge); padding-top: 20px; margin-top: 22px;
+  }
+  .task-result:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  .task-result h2 { margin: 0 0 6px; font-size: 18px; }
+  .task-result .task-meta { color: var(--ink-faint); font-size: 13px; margin-bottom: 12px; }
+  .crit-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px;
+  }
+  .crit-cell {
+    background: #fafbfd; border: 1px solid var(--panel-edge); border-radius: 10px; padding: 12px;
+  }
+  .crit-cell .label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--brand-ink); margin-bottom: 6px;
+  }
+  .crit-cell .val { font-size: 22px; font-weight: 700; }
+  .crit-cell .val.unassessable { font-size: 14px; color: var(--danger); }
+  .overall-line {
+    background: var(--brand-soft); color: var(--brand-ink);
+    border-radius: 10px; padding: 12px 16px;
+    font-size: 16px; font-weight: 600;
+    display: flex; justify-content: space-between; margin-bottom: 16px;
+  }
+  .overall-line .overall-val { font-size: 22px; }
+  .descriptors-list { margin-bottom: 14px; }
+  .descriptor-item {
+    background: #fff; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 8px;
+  }
+  .descriptor-item .di-head {
+    display: flex; justify-content: space-between; margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .descriptor-item .crit-name { font-weight: 700; color: var(--ink); }
+  .descriptor-item .band-pill {
+    background: var(--brand); color: #fff; padding: 1px 8px; border-radius: 999px;
+    font-size: 12px;
+  }
+  .descriptor-item .summary { font-size: 14px; line-height: 1.55; margin-bottom: 8px; }
+  .descriptor-item .indicators {
+    margin: 0; padding-left: 18px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .descriptor-item .indicators li { margin-bottom: 3px; }
+  .descriptor-item .next-up {
+    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--panel-edge);
+    font-size: 12.5px; color: var(--ink-soft);
+  }
+  .descriptor-item .next-up strong { color: var(--brand-ink); }
+  .strengths-weaknesses {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px;
+  }
+  .sw-card {
+    background: #fafbfd; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .sw-card h4 {
+    margin: 0 0 6px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .sw-card.s h4 { color: var(--success); }
+  .sw-card.w h4 { color: var(--warn); }
+  .sw-card.t h4 { color: var(--brand-ink); }
+  .sw-card ul { margin: 0; padding-left: 18px; font-size: 13.5px; }
+  .sw-card li { margin-bottom: 4px; }
+  .essay-block {
+    background: #fafbfd; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 12px 14px; font-size: 14px; line-height: 1.6;
+    white-space: pre-wrap; word-wrap: break-word;
+    max-height: 280px; overflow-y: auto; margin-bottom: 10px;
+  }
+  .essay-block details { font-size: 14px; }
+  .essay-block summary { cursor: pointer; color: var(--brand); font-weight: 600; }
+  .results-actions {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    border-top: 1px solid var(--panel-edge); padding-top: 18px; margin-top: 6px;
+  }
+
+  /* ============================================================
+     LEARNING MODE
+     ============================================================ */
+  .lm-task {
+    border-top: 1px solid var(--panel-edge);
+    padding-top: 22px; margin-top: 22px;
+  }
+  .lm-task:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  .lm-task-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .lm-task-head h2 { margin: 0; font-size: 20px; }
+  .lm-task-head .pill { background: var(--brand); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .lm-criterion {
+    background: #fff; border: 1px solid var(--panel-edge); border-radius: 12px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .lm-criterion-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eef0f4;
+  }
+  .lm-criterion-head .name { font-size: 16px; font-weight: 700; color: var(--ink); }
+  .lm-criterion-head .band {
+    background: var(--brand); color: #fff; padding: 4px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 700;
+  }
+  .lm-section { margin-bottom: 12px; }
+  .lm-section h4 {
+    margin: 0 0 6px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint);
+  }
+  .lm-descriptor {
+    background: #f8faff; border: 1px solid #dde6f6; border-radius: 8px;
+    padding: 10px 12px; font-size: 14px; line-height: 1.55;
+    color: var(--brand-ink);
+  }
+  .lm-evidence {
+    background: #fafbfd; border: 1px solid var(--panel-edge); border-radius: 8px;
+    padding: 12px 14px; font-size: 14px; line-height: 1.55;
+  }
+  .lm-evidence p { margin: 0 0 8px; }
+  .lm-evidence p:last-child { margin: 0; }
+  .lm-bar {
+    background: #eef0f4; height: 8px; border-radius: 999px; overflow: hidden; margin: 4px 0 8px;
+  }
+  .lm-bar > div { height: 100%; background: var(--brand); border-radius: 999px; }
+  .lm-bar.short > div { background: var(--warn); }
+  .lm-bar.ok > div    { background: var(--success); }
+  .lm-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .lm-chip {
+    background: #fff; border: 1px solid var(--panel-edge);
+    color: var(--ink-soft); padding: 3px 9px; border-radius: 999px; font-size: 12px;
+  }
+  .lm-chip.found { background: var(--brand-soft); color: var(--brand-ink); border-color: #dde6f6; }
+  .lm-chip.warn  { background: #fff8e6; color: #6b4900; border-color: #f2d28a; }
+  .lm-chip.bad   { background: #fdecec; color: var(--danger); border-color: #f1b3af; }
+  .lm-cat {
+    display: grid; grid-template-columns: 100px 1fr; gap: 12px; align-items: start;
+    padding: 6px 0; border-top: 1px dashed #eef0f4;
+  }
+  .lm-cat:first-child { border-top: none; }
+  .lm-cat-name { font-size: 13px; font-weight: 600; color: var(--ink-soft); text-transform: capitalize; }
+  .lm-cat-list { display: flex; flex-wrap: wrap; gap: 5px; min-height: 22px; }
+  .lm-cat-empty { font-size: 12px; color: var(--ink-faint); font-style: italic; }
+  .lm-pgraph-bars { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+  .lm-pgraph-bar { display: grid; grid-template-columns: 24px 1fr 60px; gap: 8px; align-items: center; }
+  .lm-pgraph-bar .label { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+  .lm-pgraph-bar .track { background: #eef0f4; height: 14px; border-radius: 4px; overflow: hidden; }
+  .lm-pgraph-bar .fill { height: 100%; background: var(--brand); }
+  .lm-pgraph-bar .count { font-size: 12px; color: var(--ink-soft); text-align: right; }
+  .lm-sentence {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", monospace;
+    font-size: 13px; background: #fff; border: 1px dashed var(--panel-edge);
+    border-radius: 6px; padding: 8px 10px; margin: 4px 0;
+  }
+  .lm-sentence .meta {
+    display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--ink-faint); margin-bottom: 4px;
+  }
+  .lm-next {
+    background: #f6fbf3; border: 1px solid #cce7c1; border-radius: 8px;
+    padding: 10px 12px; font-size: 13.5px; line-height: 1.55; color: #1f4e2e;
+  }
+  .lm-next strong { color: #14361f; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .test-body { grid-template-columns: 1fr; }
+    .panel { max-height: none; }
+    .crit-grid, .strengths-weaknesses { grid-template-columns: 1fr; }
+    .lm-cat { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     WELCOME SCREEN
+     ============================================================ -->
+<section id="welcome" class="screen active">
+  <div class="welcome-wrap">
+    <div class="welcome-card">
+      <span class="ace-mark">ACE IELTS</span>
+      <h1 class="welcome-title">Writing Mock Test</h1>
+      <p class="welcome-sub">Academic format — Task 1 + Task 2, 60 minutes total.</p>
+
+      <div class="welcome-meta">
+        <strong>Before you begin:</strong> a single 60-minute timer covers both tasks.
+        Task 1 should take ~20 min, Task 2 ~40 min. The timer cannot be paused.
+        Pasting is disabled — please type your responses.
+      </div>
+
+      <div class="field">
+        <label for="studentName">Full name</label>
+        <input id="studentName" type="text" autocomplete="off" placeholder="Enter your full name as on ID">
+      </div>
+      <div class="field">
+        <label for="studentId">ACE ID</label>
+        <input id="studentId" type="text" autocomplete="off" placeholder="e.g. ACE-2026-001">
+      </div>
+
+      <button id="startBtn" class="btn primary full" disabled>Begin Test</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TEST SCREEN
+     ============================================================ -->
+<section id="testScreen" class="screen">
+  <div class="topbar">
+    <div class="left">
+      <span class="candidate-chip" id="candidateChip">—</span>
+    </div>
+    <div class="center">ACE IELTS · Writing Mock 1</div>
+    <div class="right">
+      <button class="icon-btn" id="logoutBtn" title="End the session and clear local progress">Log out</button>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+  </div>
+
+  <div class="task-tabs">
+    <button class="task-tab active" data-task="1" id="tab1">Task 1<span class="word-target">(min 150 words)</span></button>
+    <button class="task-tab" data-task="2" id="tab2">Task 2<span class="word-target">(min 250 words)</span></button>
+  </div>
+
+  <div class="test-body">
+    <div class="panel panel-prompt" id="promptPanel"><!-- populated --></div>
+    <div class="panel panel-editor">
+      <div class="editor-toolbar">
+        <span class="word-pill" id="wordPill"><span class="num" id="wordCount">0</span>/ <span id="wordTarget">150</span> words</span>
+        <span class="word-pill" id="taskTimePill"><span class="num" id="taskTime">0:00</span>on this task</span>
+        <span class="spacer"></span>
+      </div>
+      <textarea id="editorTextarea" class="editor-textarea"
+        placeholder="Type your response here. Pasting is disabled." spellcheck="true"></textarea>
+      <div class="paste-warning" id="pasteWarning">
+        Pasting is not allowed during the test. Please type your response.
+      </div>
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <div class="bb-left">
+      Task 1: <strong id="bbT1Words">0</strong>w · Task 2: <strong id="bbT2Words">0</strong>w
+    </div>
+    <div>
+      <button class="btn primary" id="submitBtn">Submit test</button>
+    </div>
+  </div>
+</section>
+
+<!-- Submit confirmation modal -->
+<div class="submit-confirm" id="submitConfirm">
+  <div class="submit-confirm-card">
+    <h3>Submit your test?</h3>
+    <p id="submitConfirmText">Once submitted, you cannot change your responses. The site will give you an automated estimate, but your teacher's confirmed band in the spreadsheet is the final score.</p>
+    <div class="actions">
+      <button class="btn ghost" id="cancelSubmitBtn">Keep working</button>
+      <button class="btn primary" id="confirmSubmitBtn">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESULTS SCREEN
+     ============================================================ -->
+<section id="resultsScreen" class="screen">
+  <div class="results-wrap">
+    <div class="results-card">
+      <div class="results-head">
+        <div>
+          <h1 class="results-name" id="resultName">—</h1>
+          <div class="results-meta" id="resultMeta">—</div>
+        </div>
+        <span class="ace-mark">Result</span>
+      </div>
+      <div class="estimate-note">
+        <strong>Computer estimate.</strong> The bands below are produced by an automated
+        analysis of your writing. They are a useful guide but are not as accurate as
+        a human examiner. Your teacher's confirmed band in the class spreadsheet is the final score.
+      </div>
+      <div id="taskResults"><!-- populated --></div>
+      <div class="results-actions">
+        <button class="btn primary" id="goLearningBtn">Learning Mode — descriptor-anchored feedback</button>
+        <button class="btn ghost" id="downloadBtn">Download as .docx</button>
+        <button class="btn ghost" id="finishBtn">Finish</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEARNING MODE — descriptor-anchored deep feedback
+     ============================================================ -->
+<section id="learningScreen" class="screen">
+  <div class="results-wrap">
+    <div class="results-card">
+      <div class="results-head">
+        <div>
+          <h1 class="results-name">Learning Mode</h1>
+          <div class="results-meta">Your essay, examined against the IELTS public band descriptors.</div>
+        </div>
+        <button class="btn ghost" id="backToResultsBtn">Back to results</button>
+      </div>
+      <div class="estimate-note">
+        <strong>Reading guide.</strong> For each of the four IELTS Writing criteria, you'll see
+        the official descriptor at your estimated band, the specific things in your essay that led to it,
+        and what you would need to do to move up a band. Your teacher's confirmed band in the spreadsheet
+        is still the final score.
+      </div>
+      <div id="learningTaskBlocks"><!-- populated --></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="../shared/band_descriptors.js"></script>
+<script src="content.js"></script>
+
+<!-- Note: the download is implemented in pure browser APIs (Blob + anchor),
+     so no external library is required. This works offline, on file://, and
+     on any modern browser. -->
+
+<script>
+/* ============================================================
+   ACE IELTS Writing site — main application script
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* CONFIG — edit after Apps Script deploy */
+  const ACE_CONFIG = {
+    SHEETS_ENDPOINT: "",   // paste your Apps Script Web App URL
+    SHARED_SECRET:   "",   // paste same SHARED_SECRET from Code.gs
+    SITE_ID:         "ielts-writing-mock",
+    MOCK_TEST_ID:    "writing-mock-1",
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const H = window.IELTS_HELPERS || {};
+  const CONTENT = window.WRITING_CONTENT;
+  if (!CONTENT) {
+    document.body.innerHTML =
+      '<div style="padding:40px;font-family:sans-serif;color:#b3261e">' +
+      '<h2>Configuration error</h2><p>content.js failed to load.</p></div>';
+    return;
+  }
+  const DURATION_S = CONTENT.durationMinutes * 60;
+
+  /* STATE */
+  const state = {
+    studentName: "",
+    studentId: "",
+    startedAt: null,
+    endsAt: null,
+    timeLeft: DURATION_S,
+    elapsed: 0,
+    currentTask: 1,
+    timeOnTask1: 0,
+    timeOnTask2: 0,
+    task1Text: "",
+    task2Text: "",
+    submitted: false,
+    submittedEarly: false,
+    currentScreen: "welcome",
+    analysis: { task1: null, task2: null },
+  };
+
+  /* PERSISTENCE — snapshot to localStorage so refresh / accidental
+     close / browser crash doesn't lose work. Timer is anchored to
+     a wall-clock endsAt, so the clock keeps running even when the
+     tab is closed (matches real exam conditions). */
+  const STORAGE_KEY = "ace_writing_state_v1";
+  const STORAGE_TTL_MS = 4 * 60 * 60 * 1000;
+  const PERSIST = {
+    save() {
+      try {
+        const editor = $("editorTextarea");
+        const snap = {
+          v: 2,
+          savedAt: Date.now(),
+          studentName: state.studentName,
+          studentId:   state.studentId,
+          startedAt:   state.startedAt,
+          endsAt:      state.endsAt,
+          elapsedAtSubmit: state.submitted ? state.elapsed : null,
+          currentTask: state.currentTask,
+          timeOnTask1: state.timeOnTask1,
+          timeOnTask2: state.timeOnTask2,
+          task1Text:   (editor && state.currentTask === 1) ? editor.value : state.task1Text,
+          task2Text:   (editor && state.currentTask === 2) ? editor.value : state.task2Text,
+          submitted:   state.submitted,
+          submittedEarly: state.submittedEarly,
+          currentScreen: state.currentScreen,
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
+      } catch (e) {}
+    },
+    load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const snap = JSON.parse(raw);
+        if (!snap || (snap.v !== 1 && snap.v !== 2)) return null;
+        if (!snap.savedAt || (Date.now() - snap.savedAt) > STORAGE_TTL_MS) {
+          this.clear();
+          return null;
+        }
+        if (!snap.studentName || !snap.studentId) return null;
+        if (!snap.submitted && !snap.endsAt) return null;
+        return snap;
+      } catch (e) { return null; }
+    },
+    clear() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    },
+  };
+
+  /* ============================================================
+     RENDER — prompt panel
+     ============================================================ */
+  function renderPromptPanel() {
+    const t = CONTENT.tasks[state.currentTask - 1];
+    const host = $("promptPanel");
+    host.innerHTML = "";
+
+    const h2 = document.createElement("h2");
+    h2.className = "task-title";
+    h2.textContent = "Task " + state.currentTask;
+    host.appendChild(h2);
+
+    const meta = document.createElement("div");
+    meta.className = "task-meta";
+    meta.textContent = (t.type || t.promptType);
+    host.appendChild(meta);
+
+    // Helper: a paragraph in the rubric stack.
+    function appendPara(text, className) {
+      if (!text) return;
+      const p = document.createElement("p");
+      p.className = className || "task-para";
+      p.textContent = text;
+      host.appendChild(p);
+    }
+
+    if (state.currentTask === 1) {
+      // Authentic IELTS Task 1 order:
+      // 1) Description of what the visual shows
+      // 2) The visual itself
+      // 3) The task instruction (summarise / compare)
+      // 4) Time guidance, then word count guidance
+      appendPara(t.description, "task-para task-description");
+
+      const vw = document.createElement("div");
+      vw.className = "visual-wrap";
+      vw.innerHTML = t.visualSvg;
+      host.appendChild(vw);
+
+      appendPara(t.task, "task-para task-task");
+
+      const tail = document.createElement("div");
+      tail.className = "task-tail";
+      appendParaInto(tail, t.timeNote);
+      appendParaInto(tail, t.wordNote);
+      host.appendChild(tail);
+    } else {
+      // Task 2 order:
+      // 1) Prompt (the opening statement)
+      // 2) The question
+      // 3) "Give reasons / examples" note
+      // 4) Time + word count
+      appendPara(t.prompt, "task-para task-prompt");
+      appendPara(t.question, "task-para task-question");
+      appendPara(t.examplesNote, "task-para task-examples");
+
+      const tail = document.createElement("div");
+      tail.className = "task-tail";
+      appendParaInto(tail, t.timeNote);
+      appendParaInto(tail, t.wordNote);
+      host.appendChild(tail);
+    }
+  }
+
+  function appendParaInto(host, text) {
+    if (!text) return;
+    const p = document.createElement("p");
+    p.className = "task-tail-line";
+    p.textContent = text;
+    host.appendChild(p);
+  }
+
+  /* ============================================================
+     TASK SWITCHING
+     ============================================================ */
+  function switchTask(num) {
+    // Save current textarea into the right state slot
+    if (state.currentTask === 1) state.task1Text = $("editorTextarea").value;
+    else                          state.task2Text = $("editorTextarea").value;
+
+    state.currentTask = num;
+    $("tab1").classList.toggle("active", num === 1);
+    $("tab2").classList.toggle("active", num === 2);
+
+    renderPromptPanel();
+    const text = num === 1 ? state.task1Text : state.task2Text;
+    const target = CONTENT.tasks[num - 1].minWords;
+    $("editorTextarea").value = text;
+    $("wordTarget").textContent = target;
+    updateWordCount();
+    updateTaskTime();
+    $("editorTextarea").focus();
+    PERSIST.save();
+  }
+
+  /* ============================================================
+     WORD COUNT + PASTE BLOCK
+     ============================================================ */
+  function countWords(t) {
+    return String(t || "").trim().split(/\s+/).filter(Boolean).length;
+  }
+  function updateWordCount() {
+    const text = $("editorTextarea").value;
+    const n = countWords(text);
+    const target = CONTENT.tasks[state.currentTask - 1].minWords;
+    $("wordCount").textContent = n;
+    const pill = $("wordPill");
+    pill.classList.remove("ok", "short");
+    if (n === 0) {
+      // neutral
+    } else if (n >= target) {
+      pill.classList.add("ok");
+    } else {
+      pill.classList.add("short");
+    }
+    // Also keep the bottom-bar counters fresh.
+    if (state.currentTask === 1) {
+      state.task1Text = text;
+      $("bbT1Words").textContent = n;
+    } else {
+      state.task2Text = text;
+      $("bbT2Words").textContent = n;
+    }
+  }
+  function updateTaskTime() {
+    const sec = state.currentTask === 1 ? state.timeOnTask1 : state.timeOnTask2;
+    $("taskTime").textContent = formatTime(sec);
+  }
+
+  function bindEditor() {
+    const ta = $("editorTextarea");
+    ta.addEventListener("input", function () {
+      updateWordCount();
+      PERSIST.save();
+    });
+    ta.addEventListener("paste", function (e) {
+      e.preventDefault();
+      flashPasteWarning();
+    });
+    ta.addEventListener("drop", function (e) { e.preventDefault(); flashPasteWarning(); });
+    ta.addEventListener("dragover", function (e) { e.preventDefault(); });
+  }
+  let pasteTimer = null;
+  function flashPasteWarning() {
+    const w = $("pasteWarning");
+    w.classList.add("show");
+    if (pasteTimer) clearTimeout(pasteTimer);
+    pasteTimer = setTimeout(() => w.classList.remove("show"), 2500);
+  }
+
+  /* ============================================================
+     TIMER
+     ============================================================ */
+  let timerInterval = null;
+  function startTimer(opts) {
+    opts = opts || {};
+    if (opts.resume && state.endsAt) {
+      state.timeLeft = Math.max(0, Math.round((state.endsAt - Date.now()) / 1000));
+      state.elapsed  = DURATION_S - state.timeLeft;
+    } else {
+      state.startedAt = Date.now();
+      state.endsAt    = state.startedAt + DURATION_S * 1000;
+      state.timeLeft  = DURATION_S;
+      state.elapsed   = 0;
+    }
+    updateTimerDisplay();
+    PERSIST.save();
+    timerInterval = setInterval(tick, 1000);
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      submitTest(true);
+    }
+  }
+  function tick() {
+    state.timeLeft -= 1;
+    state.elapsed += 1;
+    if (state.currentTask === 1) state.timeOnTask1 += 1;
+    else                          state.timeOnTask2 += 1;
+    updateTimerDisplay();
+    updateTaskTime();
+    PERSIST.save();
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      submitTest(true);
+    }
+  }
+  function stopTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  function updateTimerDisplay() {
+    const t = $("timer");
+    t.textContent = formatTime(state.timeLeft);
+    t.classList.toggle("warn", state.timeLeft <= 10 * 60 && state.timeLeft > 5 * 60);
+    t.classList.toggle("crit", state.timeLeft <= 5 * 60);
+  }
+  function formatTime(s) {
+    s = Math.max(0, s | 0);
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return m + ":" + (r < 10 ? "0" + r : r);
+  }
+
+  /* ============================================================
+     ANALYSE ESSAY — moderate heuristic engine
+     ------------------------------------------------------------
+     Returns: { unassessable, reason, perCriterion, overall,
+                metrics, strengths, weaknesses, tips }
+     This is a *suggestion*, not an authoritative band — the
+     teacher's confirmed band in the Sheet is the final score.
+     ============================================================ */
+
+  const STOPWORDS = new Set("a an the and or but if while of in on at to for with from by as is are was were be been being do does did has have had this that these those it its their they them he she his her i you we us our your also so than then there here not no yes very just only".split(" "));
+  const LINKING_PHRASES = {
+    addition: ["furthermore","moreover","in addition","also","besides","what is more"],
+    contrast: ["however","on the other hand","whereas","in contrast","nevertheless","despite","although","while"],
+    cause:    ["because","since","due to","as","owing to"],
+    effect:   ["therefore","consequently","as a result","hence","thus","so"],
+    example:  ["for example","for instance","such as","e.g.","including"],
+    sequence: ["firstly","secondly","finally","then","next","subsequently","in conclusion"],
+    emphasis: ["clearly","indeed","in fact","particularly","especially"],
+  };
+  const ACADEMIC_WORDS = new Set("advocate alleviate alternative beneficial conclude consequence considerable demonstrate develop economy ensure enhance establish evident facilitate fundamental generate implement implication impose indicate influence inherent initiate innovative integrate justify maintain mitigate notable objective perspective phenomenon predominantly preserve prevalent priority procedure prominent regulate require resolve revenue significant subsequent sufficient sustain tendency transition undermine widespread".split(" "));
+  const INFORMAL = new Set("gonna wanna stuff kids guys cool awesome lol cuz cos kinda sorta".split(" "));
+  const TASK1_DATA_VERBS = ["rose","fell","peaked","remained","fluctuated","doubled","tripled","increased","decreased","plummeted","soared","declined","grew","dropped","climbed","stabilised","stabilized","reached","stood","amounted"];
+
+  function tokens(text) {
+    return String(text || "").toLowerCase().match(/[a-z']+/g) || [];
+  }
+  function sentences(text) {
+    return String(text || "").split(/[.!?]+/).map(s => s.trim()).filter(Boolean);
+  }
+  function paragraphs(text) {
+    return String(text || "").split(/\n\s*\n+/).map(p => p.trim()).filter(Boolean);
+  }
+  function uniq(arr) { return Array.from(new Set(arr)); }
+  function countPhraseHits(text, phrases) {
+    const t = " " + text.toLowerCase() + " ";
+    return phrases.reduce((n, p) => n + (t.split(p).length - 1), 0);
+  }
+  function clamp(b) { return Math.max(3, Math.min(9, b)); }
+  function r05(x) { return Math.round(x * 2) / 2; }
+
+  function analyseEssay(text, taskNumber, topicKeywords) {
+    const out = {
+      unassessable: false, reason: "",
+      perCriterion: {},
+      overall: null,
+      metrics: {},
+      strengths: [], weaknesses: [], tips: [],
+    };
+
+    const trimmed = String(text || "").trim();
+    if (trimmed.length === 0) {
+      out.unassessable = true; out.reason = "No response submitted.";
+      return out;
+    }
+
+    const toks = tokens(trimmed);
+    const words = toks.length;
+    const sents = sentences(trimmed);
+    const paras = paragraphs(trimmed);
+    const unique = new Set(toks);
+    const ttr = words > 0 ? unique.size / words : 0;
+
+    // Quality gates
+    const minWords = taskNumber === 1 ? 50 : 100;
+    if (words < minWords) {
+      out.unassessable = true;
+      out.reason = "Response is too short for assessment (" + words + " words).";
+      return out;
+    }
+    const hasVowel = toks.filter(t => /[aeiou]/.test(t)).length / Math.max(1, toks.length);
+    if (hasVowel < 0.6) {
+      out.unassessable = true;
+      out.reason = "Response appears to contain non-language input.";
+      return out;
+    }
+    if (toks.some(t => t.length > 25)) {
+      out.unassessable = true;
+      out.reason = "Response contains unusually long character runs (possibly keyboard mashing).";
+      return out;
+    }
+    if (words > 30 && unique.size / words < 0.2) {
+      out.unassessable = true;
+      out.reason = "Response is highly repetitive.";
+      return out;
+    }
+
+    // Topic relevance (off-topic check)
+    let onTopic = true;
+    if (topicKeywords && topicKeywords.length) {
+      const lower = trimmed.toLowerCase();
+      const hits = topicKeywords.filter(k => lower.indexOf(k) !== -1).length;
+      onTopic = hits >= 2;
+      if (!onTopic && words > 100) {
+        out.unassessable = true;
+        out.reason = "Response does not appear to address the prompt.";
+        return out;
+      }
+    }
+
+    // Linking phrases — capture which ones were actually used (per category)
+    const lower = " " + trimmed.toLowerCase() + " ";
+    const linkingFoundByCat = {};
+    let linkingTotal = 0, linkingCategories = 0;
+    Object.keys(LINKING_PHRASES).forEach(cat => {
+      const found = LINKING_PHRASES[cat].filter(p => lower.indexOf(" " + p + " ") !== -1 || lower.indexOf(" " + p + ",") !== -1 || lower.indexOf(" " + p + ".") !== -1);
+      linkingFoundByCat[cat] = found;
+      linkingTotal += found.length;
+      if (found.length > 0) linkingCategories++;
+    });
+
+    // Academic / informal / data verbs — capture the actual matched words
+    const academicWordsFound = uniq(toks.filter(t => ACADEMIC_WORDS.has(t)));
+    const informalWordsFound = uniq(toks.filter(t => INFORMAL.has(t)));
+    const dataVerbsFound = uniq(toks.filter(t => {
+      const base = t.replace(/(s|ed|ing)$/, "");
+      return TASK1_DATA_VERBS.indexOf(t) !== -1 || TASK1_DATA_VERBS.indexOf(base) !== -1;
+    }));
+    const academicHits = academicWordsFound.length;
+    const informalHits = informalWordsFound.length;
+    const dataVerbHits = dataVerbsFound.length;
+
+    // Sentence-length variation
+    const sentLens = sents.map(s => tokens(s).length);
+    const avgSentLen = sentLens.reduce((a, b) => a + b, 0) / Math.max(1, sentLens.length);
+    const sdSentLen = (() => {
+      const m = avgSentLen;
+      const v = sentLens.reduce((acc, l) => acc + (l - m) * (l - m), 0) / Math.max(1, sentLens.length);
+      return Math.sqrt(v);
+    })();
+
+    // Complex sentence markers — capture with counts
+    const complexMarkers = ["although","because","since","if","unless","while","whereas","whose","which","that"];
+    const complexMarkersFound = {};
+    complexMarkers.forEach(m => {
+      const c = (lower.match(new RegExp("\\b" + m + "\\b", "g")) || []).length;
+      if (c > 0) complexMarkersFound[m] = c;
+    });
+    const complexHits = Object.values(complexMarkersFound).reduce((a, b) => a + b, 0);
+
+    // Most-repeated content words (for the "repetition" feedback)
+    const wordFreq = {};
+    toks.forEach(t => {
+      if (STOPWORDS.has(t) || t.length < 4) return;
+      wordFreq[t] = (wordFreq[t] || 0) + 1;
+    });
+    const repeatedWords = Object.entries(wordFreq)
+      .filter(([w, n]) => n >= 4)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([w, n]) => ({ word: w, count: n }));
+
+    // Pick example sentences (longest, shortest, and a middle one) for Grammar evidence
+    const sentExamples = (function () {
+      if (sents.length === 0) return { longest: "", shortest: "", middle: "" };
+      const indexed = sents.map((s, i) => ({ s, i, len: sentLens[i] }));
+      const sorted = indexed.slice().sort((a, b) => a.len - b.len);
+      return {
+        shortest: sorted[0].s,
+        longest:  sorted[sorted.length - 1].s,
+        middle:   sorted[Math.floor(sorted.length / 2)].s,
+      };
+    })();
+
+    out.metrics = {
+      words, paragraphs: paras.length, sentences: sents.length,
+      uniqueWords: unique.size, ttr,
+      avgSentLen, sdSentLen,
+      linkingTotal, linkingCategories,
+      academicHits, informalHits, dataVerbHits, complexHits,
+      onTopic,
+    };
+    // Concrete evidence — used by Learning Mode
+    out.evidence = {
+      linkingByCat:        linkingFoundByCat,
+      academicWords:       academicWordsFound,
+      informalWords:       informalWordsFound,
+      dataVerbs:           dataVerbsFound,
+      complexMarkers:      complexMarkersFound,
+      repeatedWords:       repeatedWords,
+      paragraphsList:      paras.slice(),
+      paragraphWordCounts: paras.map(p => countWords(p)),
+      sentenceExamples:    sentExamples,
+    };
+
+    /* Per-criterion banding — all start at 5 then adjust */
+    const taskCrit = taskNumber === 1 ? "Task Achievement" : "Task Response";
+    const targetWords = taskNumber === 1 ? 150 : 250;
+
+    // Task Achievement / Task Response
+    let bTask = 5;
+    if (words >= targetWords) bTask += 0.5;
+    if (words >= targetWords + 50) bTask += 0.3;
+    if (paras.length >= (taskNumber === 1 ? 3 : 4)) bTask += 0.5;
+    if (taskNumber === 1) {
+      if (dataVerbHits >= 3) bTask += 0.5;
+      if (dataVerbHits >= 6) bTask += 0.3;
+    } else {
+      // Task 2 — look for opinion / example markers
+      if (countPhraseHits(trimmed, ["in my opinion","i believe","i think","my view","i agree","i disagree"]) >= 1) bTask += 0.4;
+      if (countPhraseHits(trimmed, ["for example","for instance","such as"]) >= 1) bTask += 0.3;
+    }
+    if (words < targetWords * 0.8) bTask -= 1;
+    if (words < targetWords * 0.5) bTask -= 1;
+
+    // Coherence and Cohesion
+    let bCC = 5;
+    if (paras.length >= 3) bCC += 0.5;
+    if (paras.length >= 4) bCC += 0.3;
+    if (linkingTotal >= 4) bCC += 0.5;
+    if (linkingCategories >= 3) bCC += 0.5;
+    if (linkingCategories >= 5) bCC += 0.3;
+    if (paras.length === 1) bCC -= 1.5;
+    if (linkingTotal === 0 && words > 100) bCC -= 1;
+
+    // Lexical Resource
+    let bLR = 5;
+    if (ttr >= 0.45) bLR += 0.5;
+    if (ttr >= 0.55) bLR += 0.3;
+    if (academicHits >= 3) bLR += 0.5;
+    if (academicHits >= 6) bLR += 0.3;
+    if (informalHits >= 2) bLR -= 0.5;
+    if (informalHits >= 4) bLR -= 0.5;
+
+    // Grammatical Range and Accuracy
+    let bGRA = 5;
+    if (avgSentLen >= 12) bGRA += 0.3;
+    if (sdSentLen >= 4) bGRA += 0.5;
+    if (complexHits >= 2) bGRA += 0.5;
+    if (complexHits >= 5) bGRA += 0.3;
+    if (complexHits < 2 && words > 100) bGRA -= 0.5;
+    if (avgSentLen > 30) bGRA -= 0.5;
+    if (avgSentLen < 7) bGRA -= 0.5;
+
+    bTask = r05(clamp(bTask));
+    bCC   = r05(clamp(bCC));
+    bLR   = r05(clamp(bLR));
+    bGRA  = r05(clamp(bGRA));
+
+    out.perCriterion[taskCrit] = bTask;
+    out.perCriterion["Coherence and Cohesion"] = bCC;
+    out.perCriterion["Lexical Resource"] = bLR;
+    out.perCriterion["Grammatical Range and Accuracy"] = bGRA;
+
+    out.overall = H.overallWritingBand ? H.overallWritingBand(out.perCriterion) :
+      r05((bTask + bCC + bLR + bGRA) / 4);
+
+    /* Strengths / weaknesses / tips */
+    if (words >= targetWords) out.strengths.push("Met or exceeded the minimum word count (" + words + " words).");
+    if (paras.length >= 4)    out.strengths.push("Good paragraph structure (" + paras.length + " paragraphs).");
+    if (linkingCategories >= 3) out.strengths.push("Used a variety of cohesive devices across " + linkingCategories + " categories.");
+    if (academicHits >= 3)    out.strengths.push("Used academic vocabulary (" + academicHits + " hits).");
+    if (complexHits >= 3)     out.strengths.push("Attempted complex sentence structures.");
+
+    if (words < targetWords)  out.weaknesses.push("Below the minimum word count (" + words + " / " + targetWords + ").");
+    if (paras.length <= 2)    out.weaknesses.push("Limited paragraph structure (" + paras.length + " paragraphs).");
+    if (linkingTotal < 3)     out.weaknesses.push("Few cohesive devices detected.");
+    if (informalHits >= 2)    out.weaknesses.push("Informal vocabulary used (" + informalHits + " instances).");
+    if (avgSentLen < 8)       out.weaknesses.push("Sentences are quite short on average.");
+    if (taskNumber === 1 && dataVerbHits < 3) out.weaknesses.push("Few words describing change or trend.");
+
+    if (paras.length < (taskNumber === 1 ? 3 : 4)) {
+      out.tips.push("Aim for at least " + (taskNumber === 1 ? "3" : "4") + " paragraphs — introduction, body, conclusion.");
+    }
+    if (linkingCategories < 4) {
+      out.tips.push("Use a wider range of linking devices (addition, contrast, cause, effect, sequence).");
+    }
+    if (taskNumber === 1 && dataVerbHits < 5) {
+      out.tips.push("Include more comparison and trend words: rose, fell, peaked, fluctuated, doubled.");
+    }
+    if (taskNumber === 2 && countPhraseHits(trimmed, ["in my opinion","i believe","i think","my view"]) === 0) {
+      out.tips.push("Make your opinion explicit at least once in the essay.");
+    }
+
+    return out;
+  }
+
+  /* ============================================================
+     SUBMIT FLOW
+     ============================================================ */
+  function showSubmitConfirm() {
+    const t1w = countWords($("editorTextarea").value && state.currentTask === 1 ? $("editorTextarea").value : state.task1Text);
+    const t2w = countWords(state.currentTask === 2 ? $("editorTextarea").value : state.task2Text);
+    $("submitConfirmText").innerHTML =
+      "Once submitted you cannot change your responses. Current word counts — Task 1: <strong>" + t1w +
+      "</strong>, Task 2: <strong>" + t2w + "</strong>.<br><br>" +
+      "The site will give you an <strong>automated estimate</strong>. " +
+      "Your teacher's confirmed band in the spreadsheet is the final score.";
+    $("submitConfirm").classList.add("show");
+  }
+  function hideSubmitConfirm() { $("submitConfirm").classList.remove("show"); }
+
+  function submitTest(autoTimeOut) {
+    hideSubmitConfirm();
+    if (state.submitted) return;
+    state.submitted = true;
+    // Capture final text
+    if (state.currentTask === 1) state.task1Text = $("editorTextarea").value;
+    else                          state.task2Text = $("editorTextarea").value;
+    stopTimer();
+
+    state.analysis.task1 = analyseEssay(state.task1Text, 1);
+    state.analysis.task2 = analyseEssay(state.task2Text, 2, CONTENT.tasks[1].promptKeywords);
+    state.submittedEarly = (autoTimeOut !== true);
+
+    renderResults(autoTimeOut === true);
+    postSubmissionsToSheets();
+    // NOTE: do not clear PERSIST here — submitted sessions stay restored
+    // through refresh. Only Finish or Log Out clears.
+    showScreen("resultsScreen");
+    PERSIST.save();
+  }
+
+  /* ============================================================
+     RESULTS RENDERING
+     ============================================================ */
+  function renderResults(autoSubmitted) {
+    $("resultName").textContent = state.studentName + " · " + state.studentId;
+    $("resultMeta").textContent =
+      CONTENT.title + " · submitted " + new Date().toLocaleString() +
+      (autoSubmitted ? " (time expired)" : "");
+    const host = $("taskResults");
+    host.innerHTML = "";
+    [1, 2].forEach(num => {
+      host.appendChild(renderTaskBlock(num));
+    });
+  }
+
+  function renderTaskBlock(num) {
+    const wrap = document.createElement("div");
+    wrap.className = "task-result";
+    const a = state.analysis["task" + num];
+    const text = num === 1 ? state.task1Text : state.task2Text;
+    const wc = countWords(text);
+    const tt = num === 1 ? state.timeOnTask1 : state.timeOnTask2;
+    const minW = CONTENT.tasks[num - 1].minWords;
+
+    const h2 = document.createElement("h2");
+    h2.textContent = "Task " + num;
+    wrap.appendChild(h2);
+    const meta = document.createElement("div");
+    meta.className = "task-meta";
+    meta.textContent = wc + " words (target " + minW + ") · " + formatTime(tt) + " on task";
+    wrap.appendChild(meta);
+
+    if (!a || a.unassessable) {
+      const note = document.createElement("div");
+      note.className = "estimate-note";
+      note.innerHTML = "<strong>Unassessable.</strong> " + (a && a.reason ? a.reason : "No response submitted.");
+      wrap.appendChild(note);
+      return wrap;
+    }
+
+    // Criterion grid
+    const grid = document.createElement("div");
+    grid.className = "crit-grid";
+    const taskCrit = num === 1 ? "Task Achievement" : "Task Response";
+    [taskCrit, "Coherence and Cohesion", "Lexical Resource", "Grammatical Range and Accuracy"].forEach(c => {
+      const cell = document.createElement("div");
+      cell.className = "crit-cell";
+      const shortLabel = c === "Task Achievement" ? "Task" :
+                         c === "Task Response"    ? "Task" :
+                         c === "Coherence and Cohesion" ? "Cohesion" :
+                         c === "Lexical Resource" ? "Lexical" :
+                         "Grammar";
+      cell.innerHTML =
+        '<div class="label">' + shortLabel + '</div>' +
+        '<div class="val">' + a.perCriterion[c].toFixed(1) + '</div>';
+      grid.appendChild(cell);
+    });
+    wrap.appendChild(grid);
+
+    const overall = document.createElement("div");
+    overall.className = "overall-line";
+    overall.innerHTML = '<div>Estimated overall band</div><div class="overall-val">' + a.overall.toFixed(1) + '</div>';
+    wrap.appendChild(overall);
+
+    // Descriptors
+    const dList = document.createElement("div");
+    dList.className = "descriptors-list";
+    [taskCrit, "Coherence and Cohesion", "Lexical Resource", "Grammatical Range and Accuracy"].forEach(c => {
+      const band = a.perCriterion[c];
+      const desc = H.descriptorFor ? H.descriptorFor(num, c, band) : null;
+      const next = H.nextBandUp ? H.nextBandUp(num, c, band) : null;
+      const item = document.createElement("div");
+      item.className = "descriptor-item";
+      let inner =
+        '<div class="di-head"><span class="crit-name">' + c + '</span>' +
+        '<span class="band-pill">Band ' + band.toFixed(1) + '</span></div>';
+      if (desc) {
+        inner += '<div class="summary">' + escapeHtml(desc.summary) + '</div>';
+        if (desc.indicators && desc.indicators.length) {
+          inner += '<ul class="indicators">';
+          desc.indicators.forEach(i => { inner += '<li>' + escapeHtml(i) + '</li>'; });
+          inner += '</ul>';
+        }
+      }
+      if (next) {
+        inner += '<div class="next-up"><strong>To reach Band ' + next.band + ':</strong> ' + escapeHtml(next.summary) + '</div>';
+      }
+      item.innerHTML = inner;
+      dList.appendChild(item);
+    });
+    wrap.appendChild(dList);
+
+    // Strengths / weaknesses / tips
+    if ((a.strengths && a.strengths.length) || (a.weaknesses && a.weaknesses.length) || (a.tips && a.tips.length)) {
+      const sw = document.createElement("div");
+      sw.className = "strengths-weaknesses";
+      sw.appendChild(swCard("s", "Strengths", a.strengths));
+      sw.appendChild(swCard("w", "Areas to improve", a.weaknesses));
+      sw.appendChild(swCard("t", "Tips", a.tips));
+      wrap.appendChild(sw);
+    }
+
+    // Essay text (collapsible)
+    const essay = document.createElement("div");
+    essay.className = "essay-block";
+    essay.innerHTML = "<details open><summary>Your response</summary>" +
+      "<div style='margin-top:10px'>" + escapeHtml(text || "(empty)") + "</div></details>";
+    wrap.appendChild(essay);
+
+    return wrap;
+  }
+
+  /* ============================================================
+     LEARNING MODE — descriptor-anchored deep feedback
+     ------------------------------------------------------------
+     For each task and each of the 4 IELTS Writing criteria, this
+     renders: (1) the official band descriptor at the student's
+     estimated band, (2) concrete evidence FROM THEIR essay that
+     explains the band, (3) the "next band up" target.
+     ============================================================ */
+  function renderWritingLearningMode() {
+    const host = $("learningTaskBlocks");
+    host.innerHTML = "";
+    [1, 2].forEach(num => {
+      host.appendChild(lmTaskBlock(num));
+    });
+  }
+
+  function lmTaskBlock(num) {
+    const wrap = document.createElement("div");
+    wrap.className = "lm-task";
+
+    const a = state.analysis["task" + num];
+    const text = num === 1 ? state.task1Text : state.task2Text;
+    const t = CONTENT.tasks[num - 1];
+
+    const head = document.createElement("div");
+    head.className = "lm-task-head";
+    head.innerHTML =
+      '<h2>Task ' + num + ' — ' + escapeHtml(t.type || t.promptType) + '</h2>' +
+      (a && !a.unassessable && a.overall
+        ? '<span class="pill">Overall estimate: Band ' + a.overall.toFixed(1) + '</span>'
+        : '<span class="pill" style="background:#94a3b8">Unassessable</span>');
+    wrap.appendChild(head);
+
+    if (!a || a.unassessable) {
+      const note = document.createElement("div");
+      note.className = "estimate-note";
+      note.innerHTML = "<strong>Unassessable.</strong> " + (a && a.reason ? escapeHtml(a.reason) : "No response submitted.");
+      wrap.appendChild(note);
+      return wrap;
+    }
+
+    const taskCrit = num === 1 ? "Task Achievement" : "Task Response";
+    const crits = [taskCrit, "Coherence and Cohesion", "Lexical Resource", "Grammatical Range and Accuracy"];
+    crits.forEach(c => wrap.appendChild(lmCriterionCard(num, c, a)));
+    return wrap;
+  }
+
+  function lmCriterionCard(num, criterion, a) {
+    const card = document.createElement("div");
+    card.className = "lm-criterion";
+    const band = a.perCriterion[criterion];
+    const desc = H.descriptorFor ? H.descriptorFor(num, criterion, band) : null;
+    const next = H.nextBandUp ? H.nextBandUp(num, criterion, band) : null;
+
+    card.innerHTML =
+      '<div class="lm-criterion-head">' +
+        '<span class="name">' + escapeHtml(criterion) + '</span>' +
+        '<span class="band">Band ' + band.toFixed(1) + '</span>' +
+      '</div>';
+
+    // Descriptor at this band
+    if (desc) {
+      card.appendChild(lmSection(
+        "What Band " + Math.floor(band) + " looks like",
+        '<div class="lm-descriptor">' + escapeHtml(desc.summary) + '</div>'
+      ));
+    }
+
+    // Evidence from THIS essay
+    const ev = a.evidence || {};
+    const m = a.metrics || {};
+    let evHtml = "";
+    if (criterion === "Task Achievement" || criterion === "Task Response") {
+      const target = num === 1 ? 150 : 250;
+      const pct = Math.min(140, (m.words / target) * 100);
+      const cls = m.words >= target ? "ok" : "short";
+      evHtml += '<p><strong>Length.</strong> You wrote <strong>' + m.words + '</strong> words against a minimum of <strong>' + target + '</strong>.</p>';
+      evHtml += '<div class="lm-bar ' + cls + '"><div style="width:' + pct.toFixed(0) + '%"></div></div>';
+      evHtml += '<p><strong>Structure.</strong> ' + m.paragraphs + ' paragraph' + (m.paragraphs === 1 ? "" : "s") + ' detected.</p>';
+      if (num === 1) {
+        const dv = ev.dataVerbs || [];
+        evHtml += '<p><strong>Trend words used (' + dv.length + ').</strong>';
+        if (dv.length) {
+          evHtml += '<div class="lm-chips">' + dv.map(w => '<span class="lm-chip found">' + escapeHtml(w) + '</span>').join("") + '</div>';
+        } else {
+          evHtml += ' <em>None detected.</em>';
+        }
+        evHtml += '</p>';
+      } else {
+        const opinionMarkers = ["in my opinion","i believe","i think","my view","i agree","i disagree"];
+        const lower = " " + (a.evidence && a.evidence.paragraphsList ? a.evidence.paragraphsList.join(" ").toLowerCase() : "") + " ";
+        const oFound = opinionMarkers.filter(o => lower.indexOf(o) !== -1);
+        evHtml += '<p><strong>Opinion markers (' + oFound.length + ').</strong>';
+        if (oFound.length) {
+          evHtml += '<div class="lm-chips">' + oFound.map(w => '<span class="lm-chip found">"' + escapeHtml(w) + '"</span>').join("") + '</div>';
+        } else {
+          evHtml += ' <em>None found — make your position explicit.</em>';
+        }
+        evHtml += '</p>';
+      }
+    } else if (criterion === "Coherence and Cohesion") {
+      // Paragraph bar chart
+      const pcs = ev.paragraphWordCounts || [];
+      const maxWc = Math.max(1, ...pcs);
+      evHtml += '<p><strong>Paragraph structure.</strong> ' + m.paragraphs + ' paragraph' + (m.paragraphs === 1 ? "" : "s") + ', avg ' + Math.round(m.words / Math.max(1, m.paragraphs)) + ' words each.</p>';
+      if (pcs.length) {
+        evHtml += '<div class="lm-pgraph-bars">';
+        pcs.forEach((wc, i) => {
+          const w = (wc / maxWc) * 100;
+          evHtml += '<div class="lm-pgraph-bar"><span class="label">¶' + (i + 1) + '</span><div class="track"><div class="fill" style="width:' + w.toFixed(0) + '%"></div></div><span class="count">' + wc + ' words</span></div>';
+        });
+        evHtml += '</div>';
+      }
+      // Linking phrases per category
+      evHtml += '<p style="margin-top:10px"><strong>Linking devices by category.</strong></p>';
+      Object.keys(LINKING_PHRASES).forEach(cat => {
+        const found = (ev.linkingByCat && ev.linkingByCat[cat]) || [];
+        evHtml += '<div class="lm-cat"><span class="lm-cat-name">' + cat + '</span><div class="lm-cat-list">';
+        if (found.length) {
+          evHtml += found.map(p => '<span class="lm-chip found">' + escapeHtml(p) + '</span>').join("");
+        } else {
+          evHtml += '<span class="lm-cat-empty">— none used</span>';
+        }
+        evHtml += '</div></div>';
+      });
+    } else if (criterion === "Lexical Resource") {
+      evHtml += '<p><strong>Vocabulary range.</strong> ' + m.uniqueWords + ' unique words out of ' + m.words + ' (type-token ratio ' + m.ttr.toFixed(2) + '). Higher = more varied vocabulary.</p>';
+      const aw = ev.academicWords || [];
+      evHtml += '<p><strong>Academic vocabulary detected (' + aw.length + ').</strong>';
+      if (aw.length) {
+        evHtml += '<div class="lm-chips">' + aw.map(w => '<span class="lm-chip found">' + escapeHtml(w) + '</span>').join("") + '</div>';
+      } else {
+        evHtml += ' <em>None detected from our reference list.</em>';
+      }
+      evHtml += '</p>';
+      const iw = ev.informalWords || [];
+      if (iw.length) {
+        evHtml += '<p><strong>Informal vocabulary (avoid in IELTS).</strong>';
+        evHtml += '<div class="lm-chips">' + iw.map(w => '<span class="lm-chip bad">' + escapeHtml(w) + '</span>').join("") + '</div></p>';
+      }
+      const rw = ev.repeatedWords || [];
+      if (rw.length) {
+        evHtml += '<p><strong>Most-repeated content words.</strong>';
+        evHtml += '<div class="lm-chips">' + rw.map(r => '<span class="lm-chip warn">' + escapeHtml(r.word) + ' × ' + r.count + '</span>').join("") + '</div>';
+        evHtml += '<em style="font-size:12px;color:var(--ink-faint)">Try synonyms to avoid repetition.</em></p>';
+      }
+    } else if (criterion === "Grammatical Range and Accuracy") {
+      evHtml += '<p><strong>Sentence statistics.</strong> ' + m.sentences + ' sentence' + (m.sentences === 1 ? "" : "s") + ', average length ' + m.avgSentLen.toFixed(1) + ' words, length variation (std dev) ' + m.sdSentLen.toFixed(1) + '. Higher variation indicates more flexible grammar.</p>';
+      const cm = ev.complexMarkers || {};
+      const keys = Object.keys(cm);
+      evHtml += '<p><strong>Complex-sentence markers found (' + keys.length + ').</strong>';
+      if (keys.length) {
+        evHtml += '<div class="lm-chips">' + keys.map(k => '<span class="lm-chip found">' + escapeHtml(k) + ' × ' + cm[k] + '</span>').join("") + '</div>';
+      } else {
+        evHtml += ' <em>None detected. Try adding "although", "because", "if", "while", "which", etc.</em>';
+      }
+      evHtml += '</p>';
+      const se = ev.sentenceExamples || {};
+      if (se.shortest) {
+        evHtml += '<p><strong>Sample sentences from your essay:</strong></p>';
+        evHtml += '<div class="lm-sentence"><span class="meta">Shortest (' + tokens(se.shortest).length + ' words)</span>' + escapeHtml(se.shortest) + '.</div>';
+        evHtml += '<div class="lm-sentence"><span class="meta">Mid-length (' + tokens(se.middle).length + ' words)</span>' + escapeHtml(se.middle) + '.</div>';
+        evHtml += '<div class="lm-sentence"><span class="meta">Longest (' + tokens(se.longest).length + ' words)</span>' + escapeHtml(se.longest) + '.</div>';
+      }
+    }
+    card.appendChild(lmSection("Evidence from your essay", '<div class="lm-evidence">' + evHtml + '</div>'));
+
+    // Next band up
+    if (next) {
+      card.appendChild(lmSection(
+        "To reach Band " + next.band,
+        '<div class="lm-next"><strong>What you would need:</strong> ' + escapeHtml(next.summary) + '</div>'
+      ));
+    }
+
+    return card;
+  }
+
+  function lmSection(title, innerHtml) {
+    const s = document.createElement("div");
+    s.className = "lm-section";
+    s.innerHTML = '<h4>' + escapeHtml(title) + '</h4>' + innerHtml;
+    return s;
+  }
+
+  function swCard(klass, title, items) {
+    const c = document.createElement("div");
+    c.className = "sw-card " + klass;
+    let inner = "<h4>" + title + "</h4>";
+    if (items && items.length) {
+      inner += "<ul>";
+      items.forEach(it => { inner += "<li>" + escapeHtml(it) + "</li>"; });
+      inner += "</ul>";
+    } else {
+      inner += '<div style="font-size:13px;color:var(--ink-faint)">None detected.</div>';
+    }
+    c.innerHTML = inner;
+    return c;
+  }
+
+  /* ============================================================
+     SHEETS POST — one row per task
+     ============================================================ */
+  function buildWritingPayload(num) {
+    const t = CONTENT.tasks[num - 1];
+    const text = num === 1 ? state.task1Text : state.task2Text;
+    const tt = num === 1 ? state.timeOnTask1 : state.timeOnTask2;
+    const a = state.analysis["task" + num] || {};
+    const taskCrit = num === 1 ? "Task Achievement" : "Task Response";
+    const wc = countWords(text);
+    return {
+      secret: ACE_CONFIG.SHARED_SECRET,
+      submission_type: "writing",
+      submitted_at_iso: new Date().toISOString(),
+      submitted_at_local: new Date().toLocaleString(),
+      student_name: state.studentName,
+      student_id: state.studentId,
+      site_id: ACE_CONFIG.SITE_ID,
+      mock_test_id: ACE_CONFIG.MOCK_TEST_ID,
+      task_number: num,
+      prompt_id: t.id,
+      prompt_type: t.type || t.promptType,
+      prompt_preview_150: ((t.prompt || t.description || t.task || "").slice(0, 150)),
+      essay_text: text,
+      word_count: wc,
+      target_word_count: t.minWords,
+      met_target: wc >= t.minWords,
+      time_on_task_seconds: tt,
+      total_elapsed_seconds: state.elapsed,
+      auto_band_task:  a.perCriterion ? a.perCriterion[taskCrit] : "",
+      auto_band_cc:    a.perCriterion ? a.perCriterion["Coherence and Cohesion"] : "",
+      auto_band_lr:    a.perCriterion ? a.perCriterion["Lexical Resource"] : "",
+      auto_band_gra:   a.perCriterion ? a.perCriterion["Grammatical Range and Accuracy"] : "",
+      auto_band_overall: a.overall || "",
+      auto_unassessable: a.unassessable || false,
+      auto_reason: a.reason || "",
+      auto_strengths:  (a.strengths  || []).join(" | "),
+      auto_weaknesses: (a.weaknesses || []).join(" | "),
+      auto_tips:       (a.tips       || []).join(" | "),
+    };
+  }
+  function postSubmissionsToSheets() {
+    if (!ACE_CONFIG.SHEETS_ENDPOINT) {
+      console.info("Sheets endpoint not configured — skipping POST.");
+      return;
+    }
+    [1, 2].forEach(num => {
+      const text = num === 1 ? state.task1Text : state.task2Text;
+      if (!text || !text.trim()) return;  // skip empty task
+      const payload = buildWritingPayload(num);
+      fetch(ACE_CONFIG.SHEETS_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+      }).catch(err => console.warn("Sheets POST failed for Task " + num, err));
+    });
+  }
+
+  /* ============================================================
+     WORD DOWNLOAD — vanilla, no external libraries
+     ------------------------------------------------------------
+     Produces a Word-compatible .doc file using only built-in
+     browser APIs (Blob + anchor with `download` attribute).
+     The file is HTML-formatted with MS Office namespaces; Word,
+     Google Docs, Apple Pages all open it normally.
+     Works on file://, offline, no CDN needed.
+     ============================================================ */
+  function downloadDocx() {
+    const safe = (s) => String(s).replace(/[^a-zA-Z0-9_-]+/g, "_");
+
+    let body = "";
+    body += '<h1>ACE IELTS &mdash; Writing Mock Test</h1>';
+    body += '<p><strong>' + escapeHtml(state.studentName) + '</strong> &middot; ' +
+              escapeHtml(state.studentId) + ' &middot; ' +
+              new Date().toLocaleString() + '</p>';
+    body += '<hr>';
+
+    [1, 2].forEach(num => {
+      const text = num === 1 ? state.task1Text : state.task2Text;
+      const wc = countWords(text);
+      const tt = num === 1 ? state.timeOnTask1 : state.timeOnTask2;
+      const t = CONTENT.tasks[num - 1];
+
+      body += '<h2>Task ' + num + ' &mdash; ' + escapeHtml(t.type || t.promptType) + '</h2>';
+      body += '<p><em>' + wc + ' words &middot; target ' + t.minWords + ' &middot; ' +
+                formatTime(tt) + ' on task</em></p>';
+
+      const promptText = num === 1
+        ? (t.description + " " + t.task)
+        : (t.prompt + " " + t.question);
+      body += '<p style="color:#555"><em>Prompt: ' + escapeHtml(promptText) + '</em></p>';
+      body += '<hr>';
+
+      const essay = text || "(no response submitted)";
+      // Preserve paragraph breaks from the student's textarea.
+      const paragraphs = essay.split(/\n\s*\n+/);
+      paragraphs.forEach(para => {
+        // Within a paragraph, single newlines become <br>.
+        const inner = escapeHtml(para).replace(/\n/g, "<br>");
+        body += '<p>' + inner + '</p>';
+      });
+
+      if (num === 1) {
+        body += '<p style="page-break-after:always">&nbsp;</p>';
+      }
+    });
+
+    const html =
+      '<!DOCTYPE html>' +
+      '<html xmlns:o="urn:schemas-microsoft-com:office:office"' +
+            ' xmlns:w="urn:schemas-microsoft-com:office:word"' +
+            ' xmlns="http://www.w3.org/TR/REC-html40">' +
+      '<head>' +
+        '<meta charset="utf-8">' +
+        '<title>IELTS Writing Mock Test &mdash; ' + escapeHtml(state.studentName) + '</title>' +
+        '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View>' +
+        '<w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->' +
+        '<style>' +
+          'body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.55; color:#1f2329; }' +
+          'h1 { font-size: 20pt; margin: 0 0 8pt; }' +
+          'h2 { font-size: 14pt; margin: 16pt 0 4pt; }' +
+          'hr { border: 0; border-top: 1px solid #c5cee0; margin: 10pt 0; }' +
+          'p  { margin: 0 0 8pt; }' +
+        '</style>' +
+      '</head>' +
+      '<body>' + body + '</body>' +
+      '</html>';
+
+    const blob = new Blob(['﻿', html], { type: "application/msword" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = "IELTS_Writing_" + safe(state.studentName) + "_" + safe(state.studentId) + ".doc";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  /* ============================================================
+     UTILITY
+     ============================================================ */
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+  function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    $(id).classList.add("active");
+    window.scrollTo({ top: 0 });
+    state.currentScreen = id;
+    PERSIST.save();
+  }
+
+  /* ============================================================
+     EVENT WIRING
+     ============================================================ */
+  function checkStartEnabled() {
+    const ok = $("studentName").value.trim().length > 0 &&
+               $("studentId").value.trim().length  > 0;
+    $("startBtn").disabled = !ok;
+  }
+  $("studentName").addEventListener("input", checkStartEnabled);
+  $("studentId").addEventListener("input", checkStartEnabled);
+
+  $("startBtn").addEventListener("click", function () {
+    state.studentName = $("studentName").value.trim();
+    state.studentId   = $("studentId").value.trim();
+    $("candidateChip").textContent = state.studentName + " · " + state.studentId;
+    showScreen("testScreen");
+    bindEditor();
+    renderPromptPanel();
+    updateWordCount();
+    startTimer({ resume: false });
+  });
+
+  $("tab1").addEventListener("click", () => switchTask(1));
+  $("tab2").addEventListener("click", () => switchTask(2));
+  $("logoutBtn").addEventListener("click", function () {
+    if (confirm("End this session? All progress will be lost.")) {
+      stopTimer();
+      PERSIST.clear();
+      window.location.reload();
+    }
+  });
+  $("submitBtn").addEventListener("click", showSubmitConfirm);
+  $("cancelSubmitBtn").addEventListener("click", hideSubmitConfirm);
+  $("confirmSubmitBtn").addEventListener("click", () => submitTest(false));
+  $("downloadBtn").addEventListener("click", downloadDocx);
+  $("goLearningBtn").addEventListener("click", function () {
+    renderWritingLearningMode();
+    showScreen("learningScreen");
+  });
+  $("backToResultsBtn").addEventListener("click", function () {
+    showScreen("resultsScreen");
+  });
+  $("finishBtn").addEventListener("click", function () {
+    if (confirm("Finish and return to the start screen?")) {
+      PERSIST.clear();
+      window.location.reload();
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") hideSubmitConfirm();
+  });
+
+  function showResumeToast(message) {
+    const toast = document.createElement("div");
+    toast.textContent = message || "Welcome back — your test has resumed";
+    toast.style.cssText =
+      "position:fixed;left:50%;top:80px;transform:translateX(-50%);" +
+      "background:#0f172a;color:#fff;padding:10px 18px;border-radius:999px;" +
+      "font-size:13px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.2);" +
+      "transition:opacity 0.4s;";
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = "0"; }, 3500);
+    setTimeout(() => { toast.remove(); }, 4000);
+  }
+
+  /* ============================================================
+     RESUME — restore whatever screen we were on.
+     Only Finish or Log Out clears the saved session.
+     ============================================================ */
+  (function tryResume() {
+    const snap = PERSIST.load();
+    if (!snap) return;
+
+    state.studentName = snap.studentName;
+    state.studentId   = snap.studentId;
+    state.startedAt   = snap.startedAt;
+    state.endsAt      = snap.endsAt;
+    state.timeOnTask1 = snap.timeOnTask1 || 0;
+    state.timeOnTask2 = snap.timeOnTask2 || 0;
+    state.task1Text   = snap.task1Text || "";
+    state.task2Text   = snap.task2Text || "";
+    state.currentTask = snap.currentTask || 1;
+    state.submitted   = !!snap.submitted;
+    state.submittedEarly = !!snap.submittedEarly;
+
+    $("candidateChip").textContent = state.studentName + " · " + state.studentId;
+
+    if (state.submitted) {
+      // SUBMITTED PATH — re-run analysis and show results / learning mode.
+      state.elapsed  = snap.elapsedAtSubmit || DURATION_S;
+      state.timeLeft = 0;
+      state.analysis.task1 = analyseEssay(state.task1Text, 1);
+      state.analysis.task2 = analyseEssay(state.task2Text, 2, CONTENT.tasks[1].promptKeywords);
+      renderResults(state.submittedEarly === false);
+      const target = (snap.currentScreen === "learningScreen") ? "learningScreen" : "resultsScreen";
+      if (target === "learningScreen") {
+        renderWritingLearningMode();
+      }
+      showScreen(target);
+      showResumeToast("Welcome back — your results are still here");
+      return;
+    }
+
+    // IN-PROGRESS PATH — restore test screen + resume timer.
+    const left = Math.round((snap.endsAt - Date.now()) / 1000);
+    if (left <= 0) {
+      // Timer expired while page was closed — auto-submit.
+      state.timeLeft = 0;
+      state.elapsed  = DURATION_S;
+      bindEditor();
+      submitTest(true);
+      return;
+    }
+    state.timeLeft = left;
+    state.elapsed  = DURATION_S - left;
+    $("tab1").classList.toggle("active", state.currentTask === 1);
+    $("tab2").classList.toggle("active", state.currentTask === 2);
+    showScreen("testScreen");
+    bindEditor();
+    renderPromptPanel();
+    $("editorTextarea").value =
+      state.currentTask === 1 ? state.task1Text : state.task2Text;
+    $("wordTarget").textContent = CONTENT.tasks[state.currentTask - 1].minWords;
+    $("bbT1Words").textContent = countWords(state.task1Text);
+    $("bbT2Words").textContent = countWords(state.task2Text);
+    updateWordCount();
+    startTimer({ resume: true });
+    showResumeToast("Welcome back — your test has resumed");
+  })();
+
+})();
+</script>
+
+</body>
+</html>
