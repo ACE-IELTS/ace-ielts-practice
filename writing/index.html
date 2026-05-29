@@ -652,11 +652,27 @@
     timeOnTask2: 0,
     task1Text: "",
     task2Text: "",
+    task1Id: null,         // which prompt from the Task 1 bank
+    task2Id: null,         // which prompt from the Task 2 bank
     submitted: false,
     submittedEarly: false,
     currentScreen: "welcome",
     analysis: { task1: null, task2: null },
   };
+
+  /* TASK PICKING — each session randomly picks one Task 1 (a
+     chart) and one Task 2 (an essay) from the banks. If saved
+     IDs are passed in, those are used so refresh keeps the same
+     prompts. */
+  function pickTasks(t1Id, t2Id) {
+    let t1 = t1Id ? CONTENT.task1Bank.find(t => t.id === t1Id) : null;
+    let t2 = t2Id ? CONTENT.task2Bank.find(t => t.id === t2Id) : null;
+    if (!t1) t1 = CONTENT.task1Bank[Math.floor(Math.random() * CONTENT.task1Bank.length)];
+    if (!t2) t2 = CONTENT.task2Bank[Math.floor(Math.random() * CONTENT.task2Bank.length)];
+    CONTENT.tasks = [t1, t2];
+    state.task1Id = t1.id;
+    state.task2Id = t2.id;
+  }
 
   /* PERSISTENCE — snapshot to localStorage so refresh / accidental
      close / browser crash doesn't lose work. Timer is anchored to
@@ -681,6 +697,8 @@
           timeOnTask2: state.timeOnTask2,
           task1Text:   (editor && state.currentTask === 1) ? editor.value : state.task1Text,
           task2Text:   (editor && state.currentTask === 2) ? editor.value : state.task2Text,
+          task1Id:     state.task1Id,
+          task2Id:     state.task2Id,
           submitted:   state.submitted,
           submittedEarly: state.submittedEarly,
           currentScreen: state.currentScreen,
@@ -1707,6 +1725,7 @@
     state.studentName = $("studentName").value.trim();
     state.studentId   = $("studentId").value.trim();
     $("candidateChip").textContent = state.studentName + " · " + state.studentId;
+    pickTasks();                // random pick of one Task 1 + one Task 2
     showScreen("testScreen");
     bindEditor();
     renderPromptPanel();
@@ -1776,6 +1795,8 @@
     state.currentTask = snap.currentTask || 1;
     state.submitted   = !!snap.submitted;
     state.submittedEarly = !!snap.submittedEarly;
+    // Restore the same Task 1 + Task 2 prompts the student saw before the refresh.
+    pickTasks(snap.task1Id, snap.task2Id);
 
     $("candidateChip").textContent = state.studentName + " · " + state.studentId;
 
